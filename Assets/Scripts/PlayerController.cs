@@ -20,8 +20,8 @@ public class PlayerController : WheelController
     [SerializeField] private int _currentGear;
     [SerializeField] private float _brakeForce = 600f, _handBrakeForce = 600f;
     [SerializeField] private int _downforce;
-    
-    private float _currentBrakeForce;
+
+    private float _brakeInput;
     private float _throttleInput;
     private float _steeringInput;
     private bool _handbrakeInput;
@@ -29,6 +29,9 @@ public class PlayerController : WheelController
     public float Kph { get; private set; }
     public float CurrentRpm => _currentRpm;
     public float RpmRedLine => _rpmRedLine;
+    public int CurrentGear => _currentGear;
+    public float ThrottleInput => _throttleInput;
+    public float BrakeInput => _brakeInput;
 
     // Start is called before the first frame update
     void Start()
@@ -42,14 +45,13 @@ public class PlayerController : WheelController
     void Update()
     {
         PlayerInputs();
-        Debug.Log(Kph);
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
         Kph = _rb.velocity.magnitude * 3.6f;
-        ApplyBraking(_wheels, _currentBrakeForce);
+        ApplyBraking(_wheels, _brakeInput * _brakeForce);
         if (_handbrakeInput) ApplyBraking(_handbrakeWheels, _handBrakeForce);
 
         UpdateEnginePower();
@@ -61,10 +63,10 @@ public class PlayerController : WheelController
 
     void PlayerInputs()
     {
-        _throttleInput = Input.GetAxis("Vertical");
+        _throttleInput = _rb.velocity.z <= 0? Input.GetAxis("Vertical") : Input.GetAxis("Vertical") > 0? Input.GetAxis("Vertical") : 0;
         _handbrakeInput = Input.GetKey(KeyCode.H);
         _steeringInput = Input.GetAxis("Horizontal");
-        _currentBrakeForce = _brakeForce * Convert.ToSingle(Input.GetKey(KeyCode.Space));
+        _brakeInput = _rb.velocity.z <= 0? 0 : Input.GetAxis("Vertical") < 0? -Input.GetAxis("Vertical") : 0;
 
         if (Input.GetKeyDown(KeyCode.Z) && _currentGear < _gearRatios.Length - 1) _currentGear++;
         if (Input.GetKeyDown(KeyCode.X) && _currentGear > 0) _currentGear--;
