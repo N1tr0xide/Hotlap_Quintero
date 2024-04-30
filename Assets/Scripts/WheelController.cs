@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class WheelController : MonoBehaviour
 {
-    [SerializeField] protected float _rearTrackWidth;
-    [SerializeField] protected float _wheelBase;
-    [SerializeField] protected float _radius;
+    [SerializeField] protected float RearTrackWidth;
+    [SerializeField] protected float WheelBase;
+    [SerializeField] protected float Radius;
 
     protected void ApplyBraking(Wheel[] wheels, float brakeForce)
     {
@@ -17,11 +17,11 @@ public class WheelController : MonoBehaviour
         }
     }
 
-    protected void ApplyAcceleration(Wheel[] wheels, float torque, int numberOfWheels)
+    protected void ApplyAcceleration(Wheel[] wheels, float torque)
     {
         foreach (var wheel in wheels)
         {
-            wheel.Collider.motorTorque = torque / numberOfWheels;
+            wheel.Collider.motorTorque = torque / wheels.Length;
         }
     }
 
@@ -57,6 +57,18 @@ public class WheelController : MonoBehaviour
         return Vector3.Distance(wheelOne.Collider.transform.position, wheelTwo.Collider.transform.position);
     }
 
+    protected float GetWheelsTotalRpm(Wheel[] wheels)
+    {
+        float rpmSum = 0;
+
+        for (int i = 0; i < wheels.Length; i++)
+        {
+            rpmSum += wheels[i].Collider.rpm;
+        }
+
+        return wheels.Length != 0 ? rpmSum / wheels.Length : 0;
+    }
+    
     protected Wheel[] GetFilteredWheels(Wheel[] wheels, WheelFilters filter)
     {
         List<Wheel> filteredWheels = new List<Wheel>();
@@ -99,8 +111,8 @@ public class WheelController : MonoBehaviour
     {
         return isInsideWheel switch
         {
-            true => Mathf.Rad2Deg * Mathf.Atan(_wheelBase / (_radius - (_rearTrackWidth / 2))) * input,
-            false => Mathf.Rad2Deg * Mathf.Atan(_wheelBase / (_radius + (_rearTrackWidth / 2))) * input
+            true => Mathf.Rad2Deg * Mathf.Atan(WheelBase / (Radius - (RearTrackWidth / 2))) * input,
+            false => Mathf.Rad2Deg * Mathf.Atan(WheelBase / (Radius + (RearTrackWidth / 2))) * input
         };
     }
 }

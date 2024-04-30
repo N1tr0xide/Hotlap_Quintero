@@ -13,18 +13,22 @@ public class PlayerController : WheelController
 
     private enum DriveType { Fwd, Rwd, Awd }
     [SerializeField] private DriveType _drive;
-
-    [SerializeField] private float _torque = 1000f;
-    [SerializeField] private float _brakeForce = 600f;
-    [SerializeField] private float _handBrakeForce = 600f;
+    
+    [SerializeField] private float _horsePower, _rpmRedLine, _currentTorque, _currentRpm, _diffRatio;
+    [SerializeField] private AnimationCurve _hpToRpmCurve;
+    [SerializeField] private float[] _gearRatios;
+    [SerializeField] private int _currentGear;
+    [SerializeField] private float _brakeForce = 600f, _handBrakeForce = 600f;
     [SerializeField] private int _downforce;
-
-    private float _currentTorque = 0f;
-    private float _currentBrakeForce = 0f;
+    
+    private float _currentBrakeForce;
+    private float _throttleInput;
     private float _steeringInput;
     private bool _handbrakeInput;
 
     public float Kph { get; private set; }
+    public float CurrentRpm => _currentRpm;
+    public float RpmRedLine => _rpmRedLine;
 
     // Start is called before the first frame update
     void Start()
@@ -48,7 +52,8 @@ public class PlayerController : WheelController
         ApplyBraking(_wheels, _currentBrakeForce);
         if (_handbrakeInput) ApplyBraking(_handbrakeWheels, _handBrakeForce);
 
-        ApplyAcceleration(_poweredWheels, _currentTorque, _poweredWheels.Length);
+        UpdateEnginePower();
+        ApplyAcceleration(_poweredWheels, _currentTorque);
         ApplySteering(_wheelsThatSteer, _steeringInput);
         VisualWheelUpdate(_wheels);
         ApplyDownforce(_rb, _downforce);
@@ -56,13 +61,22 @@ public class PlayerController : WheelController
 
     void PlayerInputs()
     {
-        float brakeInput = Convert.ToSingle(Input.GetKey(KeyCode.Space));
-        float throttleInput = Input.GetAxis("Vertical");
-
+        _throttleInput = Input.GetAxis("Vertical");
         _handbrakeInput = Input.GetKey(KeyCode.H);
         _steeringInput = Input.GetAxis("Horizontal");
-        _currentBrakeForce = _brakeForce * brakeInput;
-        _currentTorque = _torque * throttleInput;
+        _currentBrakeForce = _brakeForce * Convert.ToSingle(Input.GetKey(KeyCode.Space));
+
+        if (Input.GetKeyDown(KeyCode.Z) && _currentGear < _gearRatios.Length - 1) _currentGear++;
+        if (Input.GetKeyDown(KeyCode.X) && _currentGear > 0) _currentGear--;
+        if (Input.GetKeyDown(KeyCode.R)) transform.position += new Vector3(0, 2, -3);
+    }
+
+    private void UpdateEnginePower()
+    {
+        float wheelsRpm = GetWheelsTotalRpm(_wheels) * _gearRatios[_currentGear] * _diffRatio;
+        _currentRpm = Mathf.Lerp(_currentRpm, Mathf.Max(1000 - 100, wheelsRpm), Time.deltaTime * 3);
+        _currentTorque = _hpToRpmCurve.Evaluate(_currentRpm / _rpmRedLine) * (_horsePower / _currentRpm) * _gearRatios[_currentGear] *
+                         _diffRatio * 5252f * _throttleInput;
     }
 
     void ApplyDownforce(Rigidbody rb, float downforceValue)
@@ -92,14 +106,14 @@ public class PlayerController : WheelController
     private void DetermineRearTrackWidth()
     {
         Wheel[] rearWheels = GetFilteredWheels(_wheels, WheelFilters.IsRearWheel);
-        _rearTrackWidth = CalculateDistanceBetweenWheels(rearWheels[0], rearWheels[1]);
+        RearTrackWidth = CalculateDistanceBetweenWheels(rearWheels[0], rearWheels[1]);
     }
 
     [ExposeMethodInEditor]
     private void DetermineWheelBase()
     {
         Wheel[] leftWheels = GetFilteredWheels(_wheels, WheelFilters.IsLeftWheel);
-        _wheelBase = CalculateDistanceBetweenWheels(leftWheels[0], leftWheels[1]);
+        WheelBase = CalculateDistanceBetweenWheels(leftWheels[0], leftWheels[1]);
     }
 }
 
