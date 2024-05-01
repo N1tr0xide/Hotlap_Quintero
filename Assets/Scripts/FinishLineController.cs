@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class FinishLineController : MonoBehaviour
 {
-    private RaceManager raceManager;
+    [SerializeField] private RaceManager _raceManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        raceManager = FindFirstObjectByType<RaceManager>();
+        _raceManager = FindFirstObjectByType<RaceManager>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            raceManager.RaceOver();
+            _raceManager.RaceOver();
         }
     }
 }

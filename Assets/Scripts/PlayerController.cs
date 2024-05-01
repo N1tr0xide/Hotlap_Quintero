@@ -55,7 +55,7 @@ public class PlayerController : WheelController
         if (_handbrakeInput) ApplyBraking(_handbrakeWheels, _handBrakeForce);
 
         UpdateEnginePower();
-        ApplyAcceleration(_poweredWheels, _currentTorque);
+        ApplyAcceleration(_poweredWheels, _currentTorque * _throttleInput);
         ApplySteering(_wheelsThatSteer, _steeringInput);
         VisualWheelUpdate(_wheels);
         ApplyDownforce(_rb, _downforce);
@@ -68,17 +68,19 @@ public class PlayerController : WheelController
         _steeringInput = Input.GetAxis("Horizontal");
         _brakeInput = _rb.velocity.z <= 0? 0 : Input.GetAxis("Vertical") < 0? -Input.GetAxis("Vertical") : 0;
 
-        if (Input.GetKeyDown(KeyCode.Z) && _currentGear < _gearRatios.Length - 1) _currentGear++;
+        if (Input.GetKeyDown(KeyCode.Z) && _currentGear < _gearRatios.Length - 1) {_currentGear++;
+            _currentRpm -= _currentRpm / (_currentGear + 1);
+        }
         if (Input.GetKeyDown(KeyCode.X) && _currentGear > 0) _currentGear--;
-        if (Input.GetKeyDown(KeyCode.R)) transform.position += new Vector3(0, 2, -3);
+        if (Input.GetKeyDown(KeyCode.R)) transform.position += new Vector3(0, 1, -3);
     }
 
     private void UpdateEnginePower()
     {
         float wheelsRpm = GetWheelsTotalRpm(_wheels) * _gearRatios[_currentGear] * _diffRatio;
-        _currentRpm = Mathf.Lerp(_currentRpm, Mathf.Max(1000 - 100, wheelsRpm), Time.deltaTime * 3);
+        _currentRpm = Mathf.Lerp(_currentRpm, Mathf.Max(1000 - 100, wheelsRpm), Time.deltaTime * 2.5f);
         _currentTorque = _hpToRpmCurve.Evaluate(_currentRpm / _rpmRedLine) * (_horsePower / _currentRpm) * _gearRatios[_currentGear] *
-                         _diffRatio * 5252f * _throttleInput;
+                         _diffRatio * 5252f ;
     }
 
     void ApplyDownforce(Rigidbody rb, float downforceValue)
