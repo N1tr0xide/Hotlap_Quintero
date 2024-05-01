@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - RaceManager
+  - FinishLine
   layers:
   - Default
   - TransparentFX

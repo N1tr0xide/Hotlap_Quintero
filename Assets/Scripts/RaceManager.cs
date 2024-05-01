@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class RaceManager : MonoBehaviour
@@ -14,13 +15,16 @@ public class RaceManager : MonoBehaviour
     void Start()
     {
         StartCoroutine(StartRaceOnInput());
+        string currentScene = SceneManager.GetActiveScene().name;
+        float recordTime = LapRecordsUtilities.GetLapRecordTime(currentScene);
+        Debug.Log(LapRecordsUtilities.FloatToStopWatchTime(recordTime));
     }
 
     // Update is called once per frame
     void Update()
     {
         if (raceStarted) timer += Time.deltaTime;
-        stopWatchText.text = Utilities.FloatToStopWatchTime(timer);
+        stopWatchText.text = LapRecordsUtilities.FloatToStopWatchTime(timer);
     }
 
     private IEnumerator StartRaceOnInput()
@@ -32,6 +36,8 @@ public class RaceManager : MonoBehaviour
     public void RaceOver()
     {
         raceStarted = false;
+        string currentScene = SceneManager.GetActiveScene().name;
+        LapRecordsUtilities.SaveLapRecord(timer, currentScene);
     }
 }
 

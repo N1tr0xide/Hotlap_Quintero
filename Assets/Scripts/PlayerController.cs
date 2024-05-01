@@ -11,6 +11,8 @@ public class PlayerController : WheelController
     private Wheel[] _handbrakeWheels;
     private Rigidbody _rb;
 
+    private RaceManager _raceManager;
+
     private enum DriveType { Fwd, Rwd, Awd }
     [SerializeField] private DriveType _drive;
     
@@ -40,6 +42,7 @@ public class PlayerController : WheelController
         _wheelsThatSteer = GetFilteredWheels(_wheels, WheelFilters.Steer);
         _poweredWheels = SetDrive(_wheels, _drive);
         _handbrakeWheels = GetFilteredWheels(_wheels, WheelFilters.IsRearWheel);
+        _raceManager = FindFirstObjectByType<RaceManager>();
     }
 
     void Update()
@@ -68,7 +71,9 @@ public class PlayerController : WheelController
         _steeringInput = Input.GetAxis("Horizontal");
         _brakeInput = _rb.velocity.z <= 0? 0 : Input.GetAxis("Vertical") < 0? -Input.GetAxis("Vertical") : 0;
 
-        if (Input.GetKeyDown(KeyCode.Z) && _currentGear < _gearRatios.Length - 1) {_currentGear++;
+        if (Input.GetKeyDown(KeyCode.Z) && _currentGear < _gearRatios.Length - 1) 
+        {
+            _currentGear++;
             _currentRpm -= _currentRpm / (_currentGear + 1);
         }
         if (Input.GetKeyDown(KeyCode.X) && _currentGear > 0) _currentGear--;
@@ -98,6 +103,14 @@ public class PlayerController : WheelController
         };
 
         return w;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("FinishLine"))
+        {
+            _raceManager.RaceOver();
+        }
     }
 
     [ExposeMethodInEditor]
