@@ -26,7 +26,6 @@ public class CameraController : MonoBehaviour
     void FixedUpdate()
     {
         FollowTarget(_targetPos.transform.position);
-        ChangeFOV(_defaultFOV, _smoothTime);
     }
 
     private void FollowTarget(Vector3 target)
