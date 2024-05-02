@@ -6,53 +6,62 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-    private Camera mainCamera;
-    [SerializeField] private GameObject mainMenuCanvas, trackSelectionCanvas, instructionsCanvas;
-    [SerializeField] private Transform mainMenuTransform, trackSelectionTransform;
-    [SerializeField] private Text track01_lapRecordText, track02_lapRecordText, track03_lapRecordText;
-    [SerializeField] private float cameraSpeed;
+    private Camera _mainCamera;
+    private AudioSource _audioSource;
+    [SerializeField] private GameObject _mainMenuCanvas, _trackSelectionCanvas, _instructionsCanvas;
+    [SerializeField] private Transform _mainMenuTransform, _trackSelectionTransform;
+    [SerializeField] private Text _track01LapRecordText, _track02LapRecordText, _track03LapRecordText;
+    [SerializeField] private float _cameraSpeed;
+    [SerializeField] private AudioClip _startEngineSound, _engineSound;
 
     // Start is called before the first frame update
     void Start()
     {
-        mainCamera = Camera.main;
-        mainCamera.transform.position = mainMenuTransform.position;
-        mainMenuCanvas.SetActive(true);
-        trackSelectionCanvas.SetActive(false);
-        instructionsCanvas.SetActive(false);
+        _mainCamera = Camera.main;
+        _audioSource = GetComponent<AudioSource>();
+        _mainCamera.transform.position = _mainMenuTransform.position;
+        _mainMenuCanvas.SetActive(true);
+        _trackSelectionCanvas.SetActive(false);
+        _instructionsCanvas.SetActive(false);
         StartCoroutine(CarEngineShake());
         LoadTrackRecords();
+
+        float engineTimeDelay = _startEngineSound.length - .5f;
+        _audioSource.PlayOneShot(_startEngineSound);
+        _audioSource.clip = _engineSound;
+        _audioSource.loop = true;
+        _audioSource.PlayDelayed(engineTimeDelay);
     }
 
     private void LoadTrackRecords()
     {
         float track01Time = LapRecordsUtilities.GetLapRecordTime("Track_01");
-        track01_lapRecordText.text = LapRecordsUtilities.FloatToStopWatchTime(track01Time);
+        _track01LapRecordText.text = LapRecordsUtilities.FloatToStopWatchTime(track01Time);
 
         float track02Time = LapRecordsUtilities.GetLapRecordTime("Track_02");
-        track02_lapRecordText.text = LapRecordsUtilities.FloatToStopWatchTime(track02Time);
+        _track02LapRecordText.text = LapRecordsUtilities.FloatToStopWatchTime(track02Time);
 
         float track03Time = LapRecordsUtilities.GetLapRecordTime("Track_03");
-        track03_lapRecordText.text = LapRecordsUtilities.FloatToStopWatchTime(track03Time);
+        _track03LapRecordText.text = LapRecordsUtilities.FloatToStopWatchTime(track03Time);
     }
 
     public void PlayButton()
     {
-        mainMenuCanvas.SetActive(false);
-        StartCoroutine(MoveCameraToMenuView(trackSelectionTransform, trackSelectionCanvas));
+        _mainMenuCanvas.SetActive(false);
+        StartCoroutine(MoveCameraToMenuView(_trackSelectionTransform, _trackSelectionCanvas));
     }
 
     public void InstructionsButton() 
     {
-        mainMenuCanvas.SetActive(false);
-        instructionsCanvas.SetActive(true);
+        _mainMenuCanvas.SetActive(false);
+        _instructionsCanvas.SetActive(true);
     }
 
     public void ReturnToMainMenuButton()
     {
-        trackSelectionCanvas.SetActive(false);
-        instructionsCanvas.SetActive(false);
-        StartCoroutine(MoveCameraToMenuView(mainMenuTransform, mainMenuCanvas));
+        _trackSelectionCanvas.SetActive(false);
+        _instructionsCanvas.SetActive(false);
+        StartCoroutine(MoveCameraToMenuView(_mainMenuTransform, _mainMenuCanvas));
     }
 
     public void QuitButton()
@@ -86,10 +95,10 @@ public class MainMenu : MonoBehaviour
 
     private IEnumerator MoveCameraToMenuView(Transform target, GameObject menuToActivate)
     {
-        while (mainCamera.transform.rotation != target.transform.rotation)
+        while (_mainCamera.transform.rotation != target.transform.rotation)
         {
-            mainCamera.transform.position = Vector3.MoveTowards(mainCamera.transform.position, target.position, Time.deltaTime * cameraSpeed);
-            mainCamera.transform.rotation = Quaternion.RotateTowards(mainCamera.transform.rotation, target.rotation, Time.deltaTime * cameraSpeed * 3);
+            _mainCamera.transform.position = Vector3.MoveTowards(_mainCamera.transform.position, target.position, Time.deltaTime * _cameraSpeed);
+            _mainCamera.transform.rotation = Quaternion.RotateTowards(_mainCamera.transform.rotation, target.rotation, Time.deltaTime * _cameraSpeed * 3);
             yield return new WaitForEndOfFrame();
         }
 
