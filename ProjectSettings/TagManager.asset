@@ -6,6 +6,7 @@ TagManager:
   tags:
   - RaceManager
   - FinishLine
+  - Obstacle
   layers:
   - Default
   - TransparentFX

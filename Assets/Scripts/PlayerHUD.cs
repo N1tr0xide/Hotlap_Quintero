@@ -22,8 +22,8 @@ public class PlayerHUD : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _speedText.text = ((int)_playerController.Kph).ToString() + "Km/h";
-        _rpmText.text = ((int)_playerController.CurrentRpm).ToString() + "rpm";
+        _speedText.text = ((int)_playerController.Kph) + " Km/h";
+        _rpmText.text = ((int)_playerController.CurrentRpm) + " rpm";
         _gearText.text = (_playerController.CurrentGear + 1).ToString();
         _throttleSlider.value = _playerController.ThrottleInput >= 0 ? _playerController.ThrottleInput : -_playerController.ThrottleInput;
         _brakeSlider.value = _playerController.BrakeInput;

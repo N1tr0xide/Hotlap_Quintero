@@ -8,7 +8,8 @@ using UnityEngine.UI;
 public class RaceManager : MonoBehaviour
 {
     [SerializeField] private Text _stopWatchText;
-    [SerializeField] private GameObject _raceOverPanel;
+    [SerializeField] private GameObject _raceOverPanel, _timePenaltyPanel;
+    private Text _timePenaltyText;
     private float _timer;
     public bool RaceStarted { get; private set; }
 
@@ -17,6 +18,8 @@ public class RaceManager : MonoBehaviour
     {
         StartCoroutine(StartRaceOnInput());
         _raceOverPanel.SetActive(false);
+        _timePenaltyPanel.SetActive(false);
+        _timePenaltyText = _timePenaltyPanel.GetComponentInChildren<Text>();
     }
 
     // Update is called once per frame
@@ -32,6 +35,20 @@ public class RaceManager : MonoBehaviour
         RaceStarted = true;
     }
 
+    private IEnumerator DeactivateTimePenaltyPanel(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        _timePenaltyPanel.SetActive(false);
+    }
+
+    public void TimePenalty(float bySeconds)
+    {
+        _timer += bySeconds;
+        _timePenaltyText.text = $"+ {bySeconds} Secs";
+        _timePenaltyPanel.SetActive(true);
+        StartCoroutine(DeactivateTimePenaltyPanel(3));
+    }
+    
     public void RaceOver()
     {
         RaceStarted = false;

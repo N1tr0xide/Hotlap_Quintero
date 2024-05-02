@@ -56,7 +56,7 @@ public class PlayerController : WheelController
 
         #region Player Inputs
 
-            _reverseInput = Input.GetKey(KeyCode.LeftShift);
+            _reverseInput = Input.GetKey(KeyCode.C);
             _handbrakeInput = Input.GetKey(KeyCode.H);
             _steeringInput = Input.GetAxis("Horizontal");
             ThrottleInput = _reverseInput && _rb.velocity.z <= .1f ? -.3f : Input.GetAxis("Vertical") <= 0 ? 0 : Input.GetAxis("Vertical");
@@ -116,12 +116,20 @@ public class PlayerController : WheelController
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("FinishLine"))
+        if (!other.CompareTag("FinishLine")) return;
+        _raceManager.RaceOver();
+        GetComponentInChildren<Canvas>().gameObject.SetActive(false);
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("Obstacle"))
         {
-            _raceManager.RaceOver();
-            GetComponentInChildren<Canvas>().gameObject.SetActive(false);
+            _raceManager.TimePenalty(2);
         }
     }
+
+    #region In-Editor Methods
 
     [ExposeMethodInEditor]
     private void DetermineRearTrackWidth()
@@ -136,4 +144,6 @@ public class PlayerController : WheelController
         Wheel[] leftWheels = GetFilteredWheels(_wheels, WheelFilters.IsLeftWheel);
         WheelBase = CalculateDistanceBetweenWheels(leftWheels[0], leftWheels[1]);
     }
+
+    #endregion
 }
