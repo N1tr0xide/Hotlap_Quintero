@@ -26,13 +26,6 @@ public class CameraController : MonoBehaviour
     void FixedUpdate()
     {
         FollowTarget(_targetPos.transform.position);
-
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            ChangeFOV(80, _smoothTime);
-            return;
-        }
-
         ChangeFOV(_defaultFOV, _smoothTime);
     }
 

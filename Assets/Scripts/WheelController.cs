@@ -7,7 +7,7 @@ public class WheelController : MonoBehaviour
 {
     [SerializeField] protected float RearTrackWidth;
     [SerializeField] protected float WheelBase;
-    [SerializeField] protected float Radius;
+    [SerializeField] protected float WheelRadius;
 
     protected void ApplyBraking(Wheel[] wheels, float brakeForce)
     {
@@ -111,8 +111,8 @@ public class WheelController : MonoBehaviour
     {
         return isInsideWheel switch
         {
-            true => Mathf.Rad2Deg * Mathf.Atan(WheelBase / (Radius - (RearTrackWidth / 2))) * input,
-            false => Mathf.Rad2Deg * Mathf.Atan(WheelBase / (Radius + (RearTrackWidth / 2))) * input
+            true => Mathf.Rad2Deg * Mathf.Atan(WheelBase / (WheelRadius - (RearTrackWidth / 2))) * input,
+            false => Mathf.Rad2Deg * Mathf.Atan(WheelBase / (WheelRadius + (RearTrackWidth / 2))) * input
         };
     }
 }

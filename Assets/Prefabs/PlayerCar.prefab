@@ -105,7 +105,7 @@ AudioSource:
   m_GameObject: {fileID: 687974653643012903}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -4343724839099516166, guid: cad2c6155abbaea43b12e975d9e60e1d, type: 2}
   m_audioClip: {fileID: 8300000, guid: 75fa27e467267c74f91f1f6f4e74ff88, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -201,7 +201,7 @@ AudioSource:
   m_GameObject: {fileID: 687974653643012903}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -4343724839099516166, guid: cad2c6155abbaea43b12e975d9e60e1d, type: 2}
   m_audioClip: {fileID: 8300000, guid: bb683044c23cd50438d45fe475089c84, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -297,7 +297,7 @@ AudioSource:
   m_GameObject: {fileID: 687974653643012903}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -4343724839099516166, guid: cad2c6155abbaea43b12e975d9e60e1d, type: 2}
   m_audioClip: {fileID: 8300000, guid: e9643d8581d235f45a62997cba851988, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -393,7 +393,7 @@ AudioSource:
   m_GameObject: {fileID: 687974653643012903}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -4343724839099516166, guid: cad2c6155abbaea43b12e975d9e60e1d, type: 2}
   m_audioClip: {fileID: 8300000, guid: 132c1515ea005404fb6144c976c99ed6, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -583,10 +583,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 4223462387363413593}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 200, y: -150}
+  m_SizeDelta: {x: 400, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4716428045789846332
 CanvasRenderer:
@@ -663,7 +663,7 @@ RectTransform:
   m_Father: {fileID: 305126813413808341}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0.457, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0.000015259, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1253,7 +1253,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RearTrackWidth: 1.5560291
   WheelBase: 2.6821923
-  Radius: 3
+  WheelRadius: 3
   _wheels:
   - Collider: {fileID: 3456682492223796126}
     WheelMesh: {fileID: 621413223880161367}
@@ -1278,8 +1278,6 @@ MonoBehaviour:
   _drive: 2
   _horsePower: 600
   _rpmRedLine: 9000
-  _currentTorque: 0
-  _currentRpm: 0
   _diffRatio: 6
   _hpToRpmCurve:
     serializedVersion: 2
@@ -1320,9 +1318,8 @@ MonoBehaviour:
   - 2
   - 1.5
   - 1
-  _currentGear: 0
   _brakeForce: 700
-  _handBrakeForce: 1000
+  _handBrakeForce: 2000
   _downforce: 50
 --- !u!114 &2553500753612488170
 MonoBehaviour:
@@ -1336,11 +1333,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d9f11d5c681c074ab08cb7fd613ce04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedText: {fileID: 1843628705717470409}
-  rpmText: {fileID: 5636342654618075168}
-  gearText: {fileID: 7449156788202323332}
-  throttleSlider: {fileID: 4709017924289959875}
-  brakeSlider: {fileID: 1865291317699403718}
+  _hudCanvas: {fileID: 7884447658421969050}
+  _speedText: {fileID: 1843628705717470409}
+  _rpmText: {fileID: 5636342654618075168}
+  _gearText: {fileID: 7449156788202323332}
+  _throttleSlider: {fileID: 4709017924289959875}
+  _brakeSlider: {fileID: 1865291317699403718}
 --- !u!1 &3173094906603005973
 GameObject:
   m_ObjectHideFlags: 0
@@ -1790,7 +1788,7 @@ RectTransform:
   m_Father: {fileID: 7445671115369250088}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0.434, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0.000015259, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2926,7 +2924,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8615326874101745107
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3202,10 +3200,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 4223462387363413593}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 200, y: -50}
+  m_SizeDelta: {x: 400, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7407267786616169621
 CanvasRenderer:

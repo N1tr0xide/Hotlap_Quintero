@@ -29,7 +29,7 @@ public static class LapRecordsUtilities
         }
 
         Debug.LogWarning("Lap record key not found!!");
-        return 99999999999999999;
+        return 3599.999f;
     }
 
     public static void DeleteLapRecord(string levelName)
