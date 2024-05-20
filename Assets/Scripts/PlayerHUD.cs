@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(PlayerController))]
+//[RequireComponent(typeof(PlayerController))]
 public class PlayerHUD : MonoBehaviour
 {
     private PlayerController _playerController;

@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : WheelController
+public class PlayerControllerDEBUG : WheelController
 {
     [SerializeField] private Wheel[] _wheels = new Wheel[4];
-    private Wheel[] _wheelsThatSteer;
+    public Wheel[] WheelsThatSteer;
     private Wheel[] _poweredWheels;
     private Wheel[] _handbrakeWheels;
     private Rigidbody _rb;
@@ -37,7 +37,7 @@ public class PlayerController : WheelController
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
-        _wheelsThatSteer = GetFilteredWheels(_wheels, WheelFilters.Steer);
+        WheelsThatSteer = GetFilteredWheels(_wheels, WheelFilters.Steer);
         _poweredWheels = SetDrive(_wheels, _drive);
         _handbrakeWheels = GetFilteredWheels(_wheels, WheelFilters.IsRearWheel);
         _raceManager = FindFirstObjectByType<RaceManager>();
@@ -46,14 +46,6 @@ public class PlayerController : WheelController
 
     void Update()
     {
-        
-        if (!_raceManager.RaceStarted)
-        {
-            ThrottleInput = 0;
-            _handbrakeInput = true;
-            return;
-        }
-
         #region Player Inputs
 
             _reverseInput = Input.GetKey(KeyCode.C);
@@ -83,7 +75,7 @@ public class PlayerController : WheelController
         UpdateEnginePower();
         ApplyBraking(_wheels, BrakeInput * _brakeForce);
         ApplyAcceleration(_poweredWheels, _currentTorque * ThrottleInput);
-        ApplySteering(_wheelsThatSteer, _steeringInput);
+        ApplySteering(WheelsThatSteer, _steeringInput);
         if (_handbrakeInput) ApplyBraking(_handbrakeWheels, _handBrakeForce);
         VisualWheelUpdate(_wheels);
         ApplyDownforce(_rb, _downforce);
