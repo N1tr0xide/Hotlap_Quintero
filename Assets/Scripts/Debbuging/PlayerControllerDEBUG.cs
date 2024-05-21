@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerControllerDEBUG : WheelController
 {
@@ -28,20 +29,24 @@ public class PlayerControllerDEBUG : WheelController
 
     public float Kph { get; private set; }
     public float CurrentRpm { get; private set; }
-    public int CurrentGear { get; private set; }
-    public float ThrottleInput { get; private set; }
-    public float BrakeInput { get; private set; }
+    public int CurrentGear;
     public float RpmRedLine => _rpmRedLine;
 
+    private PlayerInputActions _playerInputActions;
+
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         _rb = GetComponent<Rigidbody>();
         WheelsThatSteer = GetFilteredWheels(_wheels, WheelFilters.Steer);
         _poweredWheels = SetDrive(_wheels, _drive);
         _handbrakeWheels = GetFilteredWheels(_wheels, WheelFilters.IsRearWheel);
-        _raceManager = FindFirstObjectByType<RaceManager>();
         _startingDrag = _rb.drag;
+        
+        //player input actions
+        _playerInputActions = new PlayerInputActions();
+        _playerInputActions.Driving.Enable();
+        _playerInputActions.Driving.GearUp.performed += GearUp;
     }
 
     void Update()
@@ -51,14 +56,6 @@ public class PlayerControllerDEBUG : WheelController
             _reverseInput = Input.GetKey(KeyCode.C);
             _handbrakeInput = Input.GetKey(KeyCode.H);
             _steeringInput = Input.GetAxis("Horizontal");
-            ThrottleInput = _reverseInput && _rb.velocity.z <= .1f ? -.3f : Input.GetAxis("Vertical") <= 0 ? 0 : Input.GetAxis("Vertical");
-            BrakeInput = Input.GetKey(KeyCode.LeftShift) ? 0 : Input.GetAxis("Vertical") < 0 ? -Input.GetAxis("Vertical") : 0;
-            
-            if (Input.GetKeyDown(KeyCode.Z) && CurrentGear < _gearRatios.Length - 1)
-            {
-                CurrentGear++;
-                CurrentRpm -= CurrentRpm / (CurrentGear + 1);
-            }
 
             if (Input.GetKeyDown(KeyCode.X) && CurrentGear > 0) CurrentGear--;
             if (Input.GetKeyDown(KeyCode.R)) transform.position += new Vector3(0, 1, 0); 
@@ -68,18 +65,29 @@ public class PlayerControllerDEBUG : WheelController
         _rb.drag = _reverseInput && _rb.velocity.z <= .1f ? 1 : _startingDrag;
         Kph = _rb.velocity.magnitude * 3.6f;
     }
-
+    
     // Update is called once per frame
     void FixedUpdate()
     {
         UpdateEnginePower();
-        ApplyBraking(_wheels, BrakeInput * _brakeForce);
-        ApplyAcceleration(_poweredWheels, _currentTorque * ThrottleInput);
+        ApplyBraking(_wheels, _playerInputActions.Driving.Brake.ReadValue<float>() * _brakeForce);
+        ApplyAcceleration(_poweredWheels, _currentTorque * _playerInputActions.Driving.Throttle.ReadValue<float>());
         ApplySteering(WheelsThatSteer, _steeringInput);
         if (_handbrakeInput) ApplyBraking(_handbrakeWheels, _handBrakeForce);
         VisualWheelUpdate(_wheels);
         ApplyDownforce(_rb, _downforce);
     }
+
+    #region Input Actions
+
+    private void GearUp(InputAction.CallbackContext context)
+    {
+        if (CurrentGear >= _gearRatios.Length - 1 || !context.performed) return;
+        CurrentGear++;
+        CurrentRpm -= CurrentRpm / (CurrentGear + 1);
+    }
+
+    #endregion
 
     private void UpdateEnginePower()
     {

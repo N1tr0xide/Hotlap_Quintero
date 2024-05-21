@@ -2404,6 +2404,7 @@ MonoBehaviour:
   _brakeForce: 700
   _handBrakeForce: 2000
   _downforce: 50
+  CurrentGear: 0
 --- !u!146 &7153605869975990041
 WheelCollider:
   m_ObjectHideFlags: 0
