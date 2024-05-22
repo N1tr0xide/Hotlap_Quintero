@@ -37,9 +37,27 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
+                    ""name"": ""Steering"",
+                    ""type"": ""Value"",
+                    ""id"": ""140108e5-3816-4850-a697-ffb6c8b403c5"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
                     ""name"": ""GearUp"",
                     ""type"": ""Button"",
                     ""id"": ""8f4f727b-5573-42b4-aa47-8a7d4619fd87"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""GearDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""484125c3-bf4d-4649-be2c-cb37d538abeb"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -53,6 +71,24 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Handbrake"",
+                    ""type"": ""Button"",
+                    ""id"": ""afb72dc5-42d0-4081-b02f-485c9b7895ed"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ResetVehicle"",
+                    ""type"": ""Button"",
+                    ""id"": ""e7e5a28e-be5e-4794-a5cc-cafd6ec683c7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -88,6 +124,72 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Brake"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4e2596ad-5ab1-439b-b9db-8ad9d7db7207"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""GearDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9cb1de78-a919-47ae-a6b7-7d13dc6f68b5"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ResetVehicle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9bced048-aa0d-42b5-808f-b42c160de443"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Handbrake"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""6555df39-d647-405b-a3d3-569582dce7ba"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Steering"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""5ef483a6-7885-469b-940f-1e6ab3071bb7"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Steering"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""8c891044-c6f1-4617-b46e-2e504f8c799e"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Steering"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -97,8 +199,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         // Driving
         m_Driving = asset.FindActionMap("Driving", throwIfNotFound: true);
         m_Driving_Throttle = m_Driving.FindAction("Throttle", throwIfNotFound: true);
+        m_Driving_Steering = m_Driving.FindAction("Steering", throwIfNotFound: true);
         m_Driving_GearUp = m_Driving.FindAction("GearUp", throwIfNotFound: true);
+        m_Driving_GearDown = m_Driving.FindAction("GearDown", throwIfNotFound: true);
         m_Driving_Brake = m_Driving.FindAction("Brake", throwIfNotFound: true);
+        m_Driving_Handbrake = m_Driving.FindAction("Handbrake", throwIfNotFound: true);
+        m_Driving_ResetVehicle = m_Driving.FindAction("ResetVehicle", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -161,15 +267,23 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Driving;
     private List<IDrivingActions> m_DrivingActionsCallbackInterfaces = new List<IDrivingActions>();
     private readonly InputAction m_Driving_Throttle;
+    private readonly InputAction m_Driving_Steering;
     private readonly InputAction m_Driving_GearUp;
+    private readonly InputAction m_Driving_GearDown;
     private readonly InputAction m_Driving_Brake;
+    private readonly InputAction m_Driving_Handbrake;
+    private readonly InputAction m_Driving_ResetVehicle;
     public struct DrivingActions
     {
         private @PlayerInputActions m_Wrapper;
         public DrivingActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Throttle => m_Wrapper.m_Driving_Throttle;
+        public InputAction @Steering => m_Wrapper.m_Driving_Steering;
         public InputAction @GearUp => m_Wrapper.m_Driving_GearUp;
+        public InputAction @GearDown => m_Wrapper.m_Driving_GearDown;
         public InputAction @Brake => m_Wrapper.m_Driving_Brake;
+        public InputAction @Handbrake => m_Wrapper.m_Driving_Handbrake;
+        public InputAction @ResetVehicle => m_Wrapper.m_Driving_ResetVehicle;
         public InputActionMap Get() { return m_Wrapper.m_Driving; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -182,12 +296,24 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Throttle.started += instance.OnThrottle;
             @Throttle.performed += instance.OnThrottle;
             @Throttle.canceled += instance.OnThrottle;
+            @Steering.started += instance.OnSteering;
+            @Steering.performed += instance.OnSteering;
+            @Steering.canceled += instance.OnSteering;
             @GearUp.started += instance.OnGearUp;
             @GearUp.performed += instance.OnGearUp;
             @GearUp.canceled += instance.OnGearUp;
+            @GearDown.started += instance.OnGearDown;
+            @GearDown.performed += instance.OnGearDown;
+            @GearDown.canceled += instance.OnGearDown;
             @Brake.started += instance.OnBrake;
             @Brake.performed += instance.OnBrake;
             @Brake.canceled += instance.OnBrake;
+            @Handbrake.started += instance.OnHandbrake;
+            @Handbrake.performed += instance.OnHandbrake;
+            @Handbrake.canceled += instance.OnHandbrake;
+            @ResetVehicle.started += instance.OnResetVehicle;
+            @ResetVehicle.performed += instance.OnResetVehicle;
+            @ResetVehicle.canceled += instance.OnResetVehicle;
         }
 
         private void UnregisterCallbacks(IDrivingActions instance)
@@ -195,12 +321,24 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Throttle.started -= instance.OnThrottle;
             @Throttle.performed -= instance.OnThrottle;
             @Throttle.canceled -= instance.OnThrottle;
+            @Steering.started -= instance.OnSteering;
+            @Steering.performed -= instance.OnSteering;
+            @Steering.canceled -= instance.OnSteering;
             @GearUp.started -= instance.OnGearUp;
             @GearUp.performed -= instance.OnGearUp;
             @GearUp.canceled -= instance.OnGearUp;
+            @GearDown.started -= instance.OnGearDown;
+            @GearDown.performed -= instance.OnGearDown;
+            @GearDown.canceled -= instance.OnGearDown;
             @Brake.started -= instance.OnBrake;
             @Brake.performed -= instance.OnBrake;
             @Brake.canceled -= instance.OnBrake;
+            @Handbrake.started -= instance.OnHandbrake;
+            @Handbrake.performed -= instance.OnHandbrake;
+            @Handbrake.canceled -= instance.OnHandbrake;
+            @ResetVehicle.started -= instance.OnResetVehicle;
+            @ResetVehicle.performed -= instance.OnResetVehicle;
+            @ResetVehicle.canceled -= instance.OnResetVehicle;
         }
 
         public void RemoveCallbacks(IDrivingActions instance)
@@ -221,7 +359,11 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     public interface IDrivingActions
     {
         void OnThrottle(InputAction.CallbackContext context);
+        void OnSteering(InputAction.CallbackContext context);
         void OnGearUp(InputAction.CallbackContext context);
+        void OnGearDown(InputAction.CallbackContext context);
         void OnBrake(InputAction.CallbackContext context);
+        void OnHandbrake(InputAction.CallbackContext context);
+        void OnResetVehicle(InputAction.CallbackContext context);
     }
 }

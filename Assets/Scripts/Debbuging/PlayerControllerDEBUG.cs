@@ -6,31 +6,21 @@ using UnityEngine.InputSystem;
 
 public class PlayerControllerDEBUG : WheelController
 {
+    [SerializeField] private CarConfiguration _carConfig;
     [SerializeField] private Wheel[] _wheels = new Wheel[4];
     public Wheel[] WheelsThatSteer;
     private Wheel[] _poweredWheels;
     private Wheel[] _handbrakeWheels;
     private Rigidbody _rb;
-    private RaceManager _raceManager;
-
-    private enum DriveType { Fwd, Rwd, Awd }
-    [SerializeField] private DriveType _drive;
     
-    private float _currentTorque, _startingDrag;
-    [SerializeField] private float _horsePower, _rpmRedLine, _diffRatio;
-    [SerializeField] private AnimationCurve _hpToRpmCurve;
-    [SerializeField] private float[] _gearRatios;
-    [SerializeField] private float _brakeForce = 600f, _handBrakeForce = 600f;
-    [SerializeField] private int _downforce;
-
+    private float _currentTorque, _standardDrag;
     private float _steeringInput;
     private bool _handbrakeInput;
-    private bool _reverseInput;
 
-    public float Kph { get; private set; }
-    public float CurrentRpm { get; private set; }
+    public float Kph;
+    public float CurrentRpm;
     public int CurrentGear;
-    public float RpmRedLine => _rpmRedLine;
+    public bool ReverseActive;
 
     private PlayerInputActions _playerInputActions;
 
@@ -39,67 +29,85 @@ public class PlayerControllerDEBUG : WheelController
     {
         _rb = GetComponent<Rigidbody>();
         WheelsThatSteer = GetFilteredWheels(_wheels, WheelFilters.Steer);
-        _poweredWheels = SetDrive(_wheels, _drive);
+        _poweredWheels = SetDrive(_wheels, _carConfig.Drive);
         _handbrakeWheels = GetFilteredWheels(_wheels, WheelFilters.IsRearWheel);
-        _startingDrag = _rb.drag;
+        _standardDrag = _rb.drag;
         
         //player input actions
         _playerInputActions = new PlayerInputActions();
         _playerInputActions.Driving.Enable();
         _playerInputActions.Driving.GearUp.performed += GearUp;
+        _playerInputActions.Driving.GearDown.performed += GearDown;
+        _playerInputActions.Driving.ResetVehicle.performed += _ => transform.position += new Vector3(0, 1, 0); 
     }
 
     void Update()
     {
-        #region Player Inputs
-
-            _reverseInput = Input.GetKey(KeyCode.C);
-            _handbrakeInput = Input.GetKey(KeyCode.H);
-            _steeringInput = Input.GetAxis("Horizontal");
-
-            if (Input.GetKeyDown(KeyCode.X) && CurrentGear > 0) CurrentGear--;
-            if (Input.GetKeyDown(KeyCode.R)) transform.position += new Vector3(0, 1, 0); 
-
-        #endregion
-
-        _rb.drag = _reverseInput && _rb.velocity.z <= .1f ? 1 : _startingDrag;
         Kph = _rb.velocity.magnitude * 3.6f;
     }
     
-    // Update is called once per frame
     void FixedUpdate()
     {
-        UpdateEnginePower();
-        ApplyBraking(_wheels, _playerInputActions.Driving.Brake.ReadValue<float>() * _brakeForce);
-        ApplyAcceleration(_poweredWheels, _currentTorque * _playerInputActions.Driving.Throttle.ReadValue<float>());
-        ApplySteering(WheelsThatSteer, _steeringInput);
-        if (_handbrakeInput) ApplyBraking(_handbrakeWheels, _handBrakeForce);
+        UpdateEnginePower(_carConfig);
+        ApplySteering(WheelsThatSteer, _playerInputActions.Driving.Steering.ReadValue<float>());
+        ApplyBraking(_wheels, _playerInputActions.Driving.Brake.ReadValue<float>() * _carConfig.BrakeForce);
+        if(_playerInputActions.Driving.Handbrake.ReadValue<float>() != 0) ApplyBraking(_handbrakeWheels, _carConfig.HandBrakeForce);
+
+        if (ReverseActive)
+        {
+            ApplyAcceleration(_poweredWheels, _currentTorque * -_playerInputActions.Driving.Throttle.ReadValue<float>());
+        }
+        else
+        {
+            ApplyAcceleration(_poweredWheels, _currentTorque * _playerInputActions.Driving.Throttle.ReadValue<float>());
+        }
+        
         VisualWheelUpdate(_wheels);
-        ApplyDownforce(_rb, _downforce);
+        ApplyDownforce(_carConfig.Downforce);
     }
 
     #region Input Actions
 
     private void GearUp(InputAction.CallbackContext context)
     {
-        if (CurrentGear >= _gearRatios.Length - 1 || !context.performed) return;
+        if (CurrentGear >= _carConfig.GearRatios.Length - 1) return;
+        
+        if (ReverseActive)
+        {
+            ReverseActive = false;
+            _rb.drag = _standardDrag;
+        }
+        
         CurrentGear++;
         CurrentRpm -= CurrentRpm / (CurrentGear + 1);
     }
 
-    #endregion
-
-    private void UpdateEnginePower()
+    private void GearDown(InputAction.CallbackContext context)
     {
-        float wheelsRpm = GetWheelsTotalRpm(_wheels) * _gearRatios[CurrentGear] * _diffRatio;
-        CurrentRpm = Mathf.Lerp(CurrentRpm, Mathf.Max(1000 - 100, wheelsRpm), Time.deltaTime * 2.5f);
-        _currentTorque = _hpToRpmCurve.Evaluate(CurrentRpm / _rpmRedLine) * (_horsePower / CurrentRpm) * _gearRatios[CurrentGear] *
-                         _diffRatio * 5252f ;
+        if (CurrentGear > 0)
+        {
+            CurrentGear--;
+            return;
+        }
+
+        if (!(Kph < 5f)) return;
+        ReverseActive = true;
+        _rb.drag = 1;
     }
 
-    private void ApplyDownforce(Rigidbody rb, float downforceValue)
+    #endregion
+
+    private void UpdateEnginePower(CarConfiguration cc)
     {
-        rb.AddForce(-transform.up * (downforceValue * rb.velocity.magnitude));
+        float wheelsRpm = GetWheelsTotalRpm(_wheels) * cc.GearRatios[CurrentGear] * cc.DifferentialRatio;
+        CurrentRpm = Mathf.Lerp(CurrentRpm, Mathf.Max(1000 - 100, wheelsRpm), Time.deltaTime * 2.5f);
+        _currentTorque = cc.HpToRpmCurve.Evaluate(CurrentRpm / cc.RpmRedLine) * (cc.HorsePower / CurrentRpm) * cc.GearRatios[CurrentGear] *
+                         cc.DifferentialRatio * 5252f ;
+    }
+
+    private void ApplyDownforce(float downforceValue)
+    {
+        _rb.AddForce(-transform.up * (downforceValue * _rb.velocity.magnitude));
     }
 
     private Wheel[] SetDrive(Wheel[] wheels, DriveType driveType)
@@ -112,21 +120,6 @@ public class PlayerControllerDEBUG : WheelController
         };
 
         return w;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (!other.CompareTag("FinishLine")) return;
-        _raceManager.RaceOver();
-        GetComponentInChildren<Canvas>().gameObject.SetActive(false);
-    }
-
-    private void OnCollisionEnter(Collision other)
-    {
-        if (other.gameObject.CompareTag("Obstacle"))
-        {
-            _raceManager.TimePenalty(2);
-        }
     }
 
     #region In-Editor Methods
