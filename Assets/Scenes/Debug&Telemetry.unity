@@ -2336,6 +2336,7 @@ MonoBehaviour:
   RearTrackWidth: 1.5560303
   WheelBase: 2.6826634
   WheelRadius: 3
+  _carConfig: {fileID: 11400000, guid: 0360fcb3ffb44d649bcc3e213b0dfafa, type: 2}
   _wheels:
   - Collider: {fileID: 3456682493855429596}
     WheelMesh: {fileID: 621413222297417749}
@@ -2358,52 +2359,10 @@ MonoBehaviour:
     WheelAxle: 1
     SideWheelIsOn: 1
   WheelsThatSteer: []
-  _drive: 2
-  _horsePower: 600
-  _rpmRedLine: 9000
-  _diffRatio: 6
-  _hpToRpmCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.9855957
-      value: 1.001152
-      inSlope: 0.42505264
-      outSlope: 0.42505264
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.016516231
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.99999994
-      value: 0.002306805
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  _gearRatios:
-  - 3
-  - 2.5
-  - 2
-  - 1.5
-  - 1
-  _brakeForce: 700
-  _handBrakeForce: 2000
-  _downforce: 50
+  Kph: 0
+  CurrentRpm: 0
+  CurrentGear: 0
+  ReverseActive: 0
 --- !u!146 &7153605869975990041
 WheelCollider:
   m_ObjectHideFlags: 0
