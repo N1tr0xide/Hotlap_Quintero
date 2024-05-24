@@ -7,6 +7,9 @@ public class CarConfiguration : ScriptableObject
 {
     [Tooltip("Set of wheels that the engine's power is delivered to.\n Fwd = front wheels. \n Rwd = Rear wheels. \n Awd = all wheels.")] 
     public DriveType Drive;
+
+    [Tooltip("Set to true to stop the wheels from locking up on braking. \nEspecially useful with really high brake forces.")] 
+    public bool Abs;
     
     [Tooltip("Engine's Power")] 
     public float HorsePower;

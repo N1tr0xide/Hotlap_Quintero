@@ -1251,11 +1251,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06858a4450272e449b49b6a9a4173d63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RearTrackWidth: 1.5560291
-  WheelBase: 2.6821923
-  WheelRadius: 3
-  _carConfig: {fileID: 11400000, guid: 0360fcb3ffb44d649bcc3e213b0dfafa, type: 2}
-  _wheels:
+  Wheels:
   - Collider: {fileID: 3456682492223796126}
     WheelMesh: {fileID: 621413223880161367}
     Steer: 1
@@ -1276,6 +1272,10 @@ MonoBehaviour:
     Steer: 0
     WheelAxle: 1
     SideWheelIsOn: 1
+  RearTrackWidth: 1.5560291
+  WheelBase: 2.6821923
+  WheelRadius: 3
+  _carConfig: {fileID: 11400000, guid: 0360fcb3ffb44d649bcc3e213b0dfafa, type: 2}
 --- !u!114 &2553500753612488170
 MonoBehaviour:
   m_ObjectHideFlags: 0

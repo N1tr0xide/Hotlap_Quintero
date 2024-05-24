@@ -7,10 +7,6 @@ using UnityEngine.InputSystem;
 public class PlayerController : WheelController
 {
     [SerializeField] private CarConfiguration _carConfig;
-    [SerializeField] private Wheel[] _wheels = new Wheel[4];
-    private Wheel[] _wheelsThatSteer;
-    private Wheel[] _poweredWheels;
-    private Wheel[] _handbrakeWheels;
     private Rigidbody _rb;
     private RaceManager _raceManager;
     private PlayerInputActions _playerInputActions;
@@ -31,9 +27,9 @@ public class PlayerController : WheelController
     void Awake()
     {
         _rb = GetComponent<Rigidbody>();
-        _wheelsThatSteer = GetFilteredWheels(_wheels, WheelFilters.Steer);
-        _poweredWheels = SetDrive(_wheels, _carConfig.Drive);
-        _handbrakeWheels = GetFilteredWheels(_wheels, WheelFilters.IsRearWheel);
+        WheelsThatSteer = GetFilteredWheels(WheelFilters.Steer);
+        PoweredWheels = SetDrive(_carConfig.Drive);
+        HandbrakeWheels = GetFilteredWheels(WheelFilters.IsRearWheel);
         _raceManager = FindFirstObjectByType<RaceManager>();
         _standardDrag = _rb.drag;
         
@@ -54,20 +50,20 @@ public class PlayerController : WheelController
     void FixedUpdate()
     {
         UpdateEnginePower(_carConfig);
-        ApplySteering(_wheelsThatSteer, _playerInputActions.Driving.Steering.ReadValue<float>());
-        ApplyBraking(_wheels, _playerInputActions.Driving.Brake.ReadValue<float>() * _carConfig.BrakeForce);
-        if(_playerInputActions.Driving.Handbrake.ReadValue<float>() != 0) ApplyBraking(_handbrakeWheels, _carConfig.HandBrakeForce);
+        ApplySteering(WheelsThatSteer, _playerInputActions.Driving.Steering.ReadValue<float>());
+        ApplyBraking(_playerInputActions.Driving.Brake.ReadValue<float>() * _carConfig.BrakeForce, _carConfig.Abs, Kph);
+        ApplyHandbrake(_carConfig.HandBrakeForce * _playerInputActions.Driving.Handbrake.ReadValue<float>());
 
         if (_reverseActive)
         {
-            ApplyAcceleration(_poweredWheels, _currentTorque * -_playerInputActions.Driving.Throttle.ReadValue<float>());
+            ApplyAcceleration(PoweredWheels, _currentTorque * -_playerInputActions.Driving.Throttle.ReadValue<float>());
         }
         else
         {
-            ApplyAcceleration(_poweredWheels, _currentTorque * _playerInputActions.Driving.Throttle.ReadValue<float>());
+            ApplyAcceleration(PoweredWheels, _currentTorque * _playerInputActions.Driving.Throttle.ReadValue<float>());
         }
         
-        VisualWheelUpdate(_wheels);
+        VisualWheelUpdate(Wheels);
         ApplyDownforce(_carConfig.Downforce);
     }
     
@@ -104,7 +100,7 @@ public class PlayerController : WheelController
 
     private void UpdateEnginePower(CarConfiguration cc) 
     {
-        float wheelsRpm = GetWheelsTotalRpm(_wheels) * cc.GearRatios[CurrentGear] * cc.DifferentialRatio;
+        float wheelsRpm = GetWheelsTotalRpm() * cc.GearRatios[CurrentGear] * cc.DifferentialRatio;
         CurrentRpm = Mathf.Lerp(CurrentRpm, Mathf.Max(1000 - 100, wheelsRpm), Time.deltaTime * 2.5f);
         _currentTorque = cc.HpToRpmCurve.Evaluate(CurrentRpm / cc.RpmRedLine) * (cc.HorsePower / CurrentRpm) * cc.GearRatios[CurrentGear] *
                          cc.DifferentialRatio * 5252f ;
@@ -115,13 +111,13 @@ public class PlayerController : WheelController
         _rb.AddForce(-transform.up * (downforceValue * _rb.velocity.magnitude));
     }
 
-    private Wheel[] SetDrive(Wheel[] wheels, DriveType driveType)
+    private Wheel[] SetDrive(DriveType driveType)
     {
         Wheel[] w = driveType switch
         {
-            DriveType.Fwd => GetFilteredWheels(wheels, WheelFilters.IsFrontWheel),
-            DriveType.Rwd => GetFilteredWheels(wheels, WheelFilters.IsRearWheel),
-            _ => wheels
+            DriveType.Fwd => GetFilteredWheels(WheelFilters.IsFrontWheel),
+            DriveType.Rwd => GetFilteredWheels(WheelFilters.IsRearWheel),
+            _ => Wheels
         };
 
         return w;
@@ -147,14 +143,14 @@ public class PlayerController : WheelController
     [ExposeMethodInEditor]
     private void DetermineRearTrackWidth()
     {
-        Wheel[] rearWheels = GetFilteredWheels(_wheels, WheelFilters.IsRearWheel);
+        Wheel[] rearWheels = GetFilteredWheels(WheelFilters.IsRearWheel);
         RearTrackWidth = CalculateDistanceBetweenWheels(rearWheels[0], rearWheels[1]);
     }
 
     [ExposeMethodInEditor]
     private void DetermineWheelBase()
     {
-        Wheel[] leftWheels = GetFilteredWheels(_wheels, WheelFilters.IsLeftWheel);
+        Wheel[] leftWheels = GetFilteredWheels(WheelFilters.IsLeftWheel);
         WheelBase = CalculateDistanceBetweenWheels(leftWheels[0], leftWheels[1]);
     }
 

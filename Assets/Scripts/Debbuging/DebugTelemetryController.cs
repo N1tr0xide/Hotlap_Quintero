@@ -22,15 +22,15 @@ public class DebugTelemetryController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i < _playerController.WheelsThatSteer.Length; i++)
+        for (int i = 0; i < _playerController.SteerWheels.Length; i++)
         {
-            if (_playerController.WheelsThatSteer[i].SideWheelIsOn == Wheel.Side.Left)
+            if (_playerController.SteerWheels[i].SideWheelIsOn == Wheel.Side.Left)
             {
-                _frontLeft = _playerController.WheelsThatSteer[i];
+                _frontLeft = _playerController.SteerWheels[i];
             }
             else
             {
-                _frontRight = _playerController.WheelsThatSteer[i];
+                _frontRight = _playerController.SteerWheels[i];
             }
         }
     }

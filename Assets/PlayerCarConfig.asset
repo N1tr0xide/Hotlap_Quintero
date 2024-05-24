@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: PlayerCarConfig
   m_EditorClassIdentifier: 
   Drive: 0
+  Abs: 1
   HorsePower: 600
   RpmRedLine: 9000
   DifferentialRatio: 6
@@ -50,11 +51,11 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   GearRatios:
-  - 3
-  - 2.5
   - 2
+  - 1.8
   - 1.5
+  - 1.2
   - 1
-  BrakeForce: 600
-  HandBrakeForce: 600
+  BrakeForce: 10000
+  HandBrakeForce: 5000
   Downforce: 50

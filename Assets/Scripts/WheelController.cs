@@ -5,16 +5,57 @@ using UnityEngine;
 
 public class WheelController : MonoBehaviour
 {
+    [SerializeField] protected Wheel[] Wheels = new Wheel[4];
+    protected Wheel[] WheelsThatSteer;
+    protected Wheel[] PoweredWheels;
+    protected Wheel[] HandbrakeWheels;
     [SerializeField] protected float RearTrackWidth;
     [SerializeField] protected float WheelBase;
     [SerializeField] protected float WheelRadius;
 
-    protected void ApplyBraking(Wheel[] wheels, float brakeForce)
+    protected void ApplyBraking(float brakeForce, bool useAbs, float carKph)
     {
-        foreach (var wheel in wheels)
+        foreach (var wheel in Wheels)
         {
-            wheel.Collider.brakeTorque = brakeForce;
+            float wheelRadPerSec = wheel.Collider.rotationSpeed * 0.017453f;
+            float wheelKph = 3.6f * WheelRadius * wheelRadPerSec;
+            
+            if (useAbs && wheelKph < carKph - 10 && carKph > 30)
+            {
+                wheel.Collider.brakeTorque = 0;
+            }
+            else if (useAbs && wheelKph > carKph + 10 && carKph > 30)
+            {
+                wheel.Collider.brakeTorque = brakeForce * brakeForce;
+            }
+            else
+            {
+                wheel.Collider.brakeTorque = brakeForce;
+            }
         }
+    }
+
+    protected void ApplyHandbrake(float handBrakeForce)
+    {
+        foreach (var wheel in HandbrakeWheels)
+        {
+            wheel.Collider.brakeTorque = handBrakeForce;
+        }
+    }
+
+    private float AverageWheelsRotationSpeed()
+    {
+        float speed = 0;
+        
+        foreach (var wheel in Wheels)
+        {
+            speed += wheel.Collider.rotationSpeed;
+        }
+
+        speed /= Wheels.Length;
+        speed = speed < 0? 0 : speed;
+        
+        return speed;
     }
 
     protected void ApplyAcceleration(Wheel[] wheels, float torque)
@@ -57,23 +98,23 @@ public class WheelController : MonoBehaviour
         return Vector3.Distance(wheelOne.Collider.transform.position, wheelTwo.Collider.transform.position);
     }
 
-    protected float GetWheelsTotalRpm(Wheel[] wheels)
+    protected float GetWheelsTotalRpm()
     {
         float rpmSum = 0;
 
-        for (int i = 0; i < wheels.Length; i++)
+        for (int i = 0; i < Wheels.Length; i++)
         {
-            rpmSum += wheels[i].Collider.rpm;
+            rpmSum += Wheels[i].Collider.rpm;
         }
 
-        return wheels.Length != 0 ? rpmSum / wheels.Length : 0;
+        return Wheels.Length != 0 ? rpmSum / Wheels.Length : 0;
     }
     
-    protected Wheel[] GetFilteredWheels(Wheel[] wheels, WheelFilters filter)
+    protected Wheel[] GetFilteredWheels(WheelFilters filter)
     {
         List<Wheel> filteredWheels = new List<Wheel>();
 
-        foreach (var wheel in wheels)
+        foreach (var wheel in Wheels)
         {
             switch (filter)
             {
