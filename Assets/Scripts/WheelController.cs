@@ -13,25 +13,36 @@ public class WheelController : MonoBehaviour
     [SerializeField] protected float WheelBase;
     [SerializeField] protected float WheelRadius;
 
+    protected void ApplyTireSquealSound(float carKph)
+    {
+        foreach (var wheel in Wheels)
+        {
+            wheel.Collider.GetGroundHit(out WheelHit hit);
+            float slipValue = Mathf.Abs(hit.forwardSlip);
+
+            if(hit.collider && slipValue >= .7f && carKph > 10)
+            {
+                wheel.AudioSource.volume = Mathf.MoveTowards(wheel.AudioSource.volume, 1, Time.deltaTime);
+                return;
+            }
+
+            wheel.AudioSource.volume = Mathf.MoveTowards(wheel.AudioSource.volume, 0, Time.deltaTime * 2);
+        }
+    }
+    
     protected void ApplyBraking(float brakeForce, bool useAbs, float carKph)
     {
         foreach (var wheel in Wheels)
         {
             float wheelRadPerSec = wheel.Collider.rotationSpeed * 0.017453f;
             float wheelKph = 3.6f * WheelRadius * wheelRadPerSec;
-            
-            if (useAbs && wheelKph < carKph - 10 && carKph > 30)
+
+            wheel.Collider.brakeTorque = useAbs switch
             {
-                wheel.Collider.brakeTorque = 0;
-            }
-            else if (useAbs && wheelKph > carKph + 10 && carKph > 30)
-            {
-                wheel.Collider.brakeTorque = brakeForce * brakeForce;
-            }
-            else
-            {
-                wheel.Collider.brakeTorque = brakeForce;
-            }
+                true when wheelKph < carKph - 10 && carKph > 30 => 0,
+                true when wheelKph > carKph + 10 && carKph > 30 => brakeForce * brakeForce,
+                _ => brakeForce
+            };
         }
     }
 
@@ -41,21 +52,6 @@ public class WheelController : MonoBehaviour
         {
             wheel.Collider.brakeTorque = handBrakeForce;
         }
-    }
-
-    private float AverageWheelsRotationSpeed()
-    {
-        float speed = 0;
-        
-        foreach (var wheel in Wheels)
-        {
-            speed += wheel.Collider.rotationSpeed;
-        }
-
-        speed /= Wheels.Length;
-        speed = speed < 0? 0 : speed;
-        
-        return speed;
     }
 
     protected void ApplyAcceleration(Wheel[] wheels, float torque)
@@ -166,6 +162,7 @@ public struct Wheel
     public bool Steer;
     public Axle WheelAxle;
     public Side SideWheelIsOn;
+    public AudioSource AudioSource;
 
     public enum Side { Left, Right }
     public enum Axle { Front, Rear }

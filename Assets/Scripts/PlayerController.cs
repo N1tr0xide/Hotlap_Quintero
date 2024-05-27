@@ -44,6 +44,7 @@ public class PlayerController : WheelController
     void Update()
     {
         Kph = _rb.velocity.magnitude * 3.6f;
+        ApplyTireSquealSound(Kph);
     }
 
     // Update is called once per frame
@@ -101,7 +102,7 @@ public class PlayerController : WheelController
     private void UpdateEnginePower(CarConfiguration cc) 
     {
         float wheelsRpm = GetWheelsTotalRpm() * cc.GearRatios[CurrentGear] * cc.DifferentialRatio;
-        CurrentRpm = Mathf.Lerp(CurrentRpm, Mathf.Max(1000 - 100, wheelsRpm), Time.deltaTime * 2.5f);
+        CurrentRpm = Mathf.Lerp(CurrentRpm, Mathf.Max(1000, wheelsRpm), Time.deltaTime * 2.5f);
         _currentTorque = cc.HpToRpmCurve.Evaluate(CurrentRpm / cc.RpmRedLine) * (cc.HorsePower / CurrentRpm) * cc.GearRatios[CurrentGear] *
                          cc.DifferentialRatio * 5252f ;
     }

@@ -40,6 +40,7 @@ public class PlayerControllerDEBUG : WheelController
     void Update()
     {
         Kph = _rb.velocity.magnitude * 3.6f;
+        ApplyTireSquealSound(Kph);
     }
     
     void FixedUpdate()
