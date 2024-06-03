@@ -30,7 +30,7 @@ public class CameraController : MonoBehaviour
 
     private void FollowTarget(Vector3 target)
     {
-        _speed = Mathf.Lerp(_speed, _playerController.Kph / 3, Time.deltaTime);
+        _speed = _playerController.Kph < 1? Vector3.Distance(transform.position, target) : Mathf.Lerp(_speed, _playerController.Kph / 3, Time.deltaTime);
         transform.position = Vector3.Lerp(transform.position, target, Time.deltaTime * _speed);
         transform.LookAt(_player.transform);
     }

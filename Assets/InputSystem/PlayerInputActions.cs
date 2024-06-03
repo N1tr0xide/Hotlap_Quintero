@@ -89,6 +89,24 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MoveCameraMouse"",
+                    ""type"": ""Value"",
+                    ""id"": ""b547e4b1-da48-450f-8997-460cf3a949c8"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": ""Clamp(min=-1,max=1)"",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""MoveCameraJoystick"",
+                    ""type"": ""Value"",
+                    ""id"": ""8010e246-c158-4065-b195-e5576a411e5e"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -289,6 +307,149 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Steering"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""4d86d900-947c-4fe5-bf70-2c627f181664"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveCameraMouse"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""f6118948-f80d-4ff0-9b37-84afc57f0db4"",
+                    ""path"": ""<Mouse>/delta/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""MoveCameraMouse"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""d95effb0-a1aa-4efb-a16a-aa4b0843aee5"",
+                    ""path"": ""<Mouse>/delta/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""MoveCameraMouse"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""2D Vector Keyboard"",
+                    ""id"": ""96315807-06a8-47e5-95ed-95ec1ad8f903"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveCameraJoystick"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""f2620243-6b88-44bf-bc0c-8cbc58961796"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""MoveCameraJoystick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""43905a52-1094-49c6-a725-9a1bb20d28bf"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""MoveCameraJoystick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""00851f08-d9c6-41b7-b874-2962d9cf17d1"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""MoveCameraJoystick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""05ee3620-f1da-4595-9d12-55aca71a97bd"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""MoveCameraJoystick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""2D Vector Gamepad"",
+                    ""id"": ""c9357a11-3281-4a06-8ebd-b082ee339b50"",
+                    ""path"": ""2DVector(mode=2)"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveCameraJoystick"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""47bd9b6b-2c66-4e9b-bc87-9ea2d3a8f65d"",
+                    ""path"": ""<Gamepad>/rightStick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""MoveCameraJoystick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""4677fae2-d574-456b-a92c-6fe62e724c4f"",
+                    ""path"": ""<Gamepad>/rightStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""MoveCameraJoystick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""b0d72424-0ccc-4dd0-aff3-db70a88b16f2"",
+                    ""path"": ""<Gamepad>/rightStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""MoveCameraJoystick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""fe36206b-bd3b-43f5-ba22-38235d464505"",
+                    ""path"": ""<Gamepad>/rightStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""MoveCameraJoystick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -332,6 +493,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Driving_Brake = m_Driving.FindAction("Brake", throwIfNotFound: true);
         m_Driving_Handbrake = m_Driving.FindAction("Handbrake", throwIfNotFound: true);
         m_Driving_ResetVehicle = m_Driving.FindAction("ResetVehicle", throwIfNotFound: true);
+        m_Driving_MoveCameraMouse = m_Driving.FindAction("MoveCameraMouse", throwIfNotFound: true);
+        m_Driving_MoveCameraJoystick = m_Driving.FindAction("MoveCameraJoystick", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -400,6 +563,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Driving_Brake;
     private readonly InputAction m_Driving_Handbrake;
     private readonly InputAction m_Driving_ResetVehicle;
+    private readonly InputAction m_Driving_MoveCameraMouse;
+    private readonly InputAction m_Driving_MoveCameraJoystick;
     public struct DrivingActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -411,6 +576,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Brake => m_Wrapper.m_Driving_Brake;
         public InputAction @Handbrake => m_Wrapper.m_Driving_Handbrake;
         public InputAction @ResetVehicle => m_Wrapper.m_Driving_ResetVehicle;
+        public InputAction @MoveCameraMouse => m_Wrapper.m_Driving_MoveCameraMouse;
+        public InputAction @MoveCameraJoystick => m_Wrapper.m_Driving_MoveCameraJoystick;
         public InputActionMap Get() { return m_Wrapper.m_Driving; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -441,6 +608,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @ResetVehicle.started += instance.OnResetVehicle;
             @ResetVehicle.performed += instance.OnResetVehicle;
             @ResetVehicle.canceled += instance.OnResetVehicle;
+            @MoveCameraMouse.started += instance.OnMoveCameraMouse;
+            @MoveCameraMouse.performed += instance.OnMoveCameraMouse;
+            @MoveCameraMouse.canceled += instance.OnMoveCameraMouse;
+            @MoveCameraJoystick.started += instance.OnMoveCameraJoystick;
+            @MoveCameraJoystick.performed += instance.OnMoveCameraJoystick;
+            @MoveCameraJoystick.canceled += instance.OnMoveCameraJoystick;
         }
 
         private void UnregisterCallbacks(IDrivingActions instance)
@@ -466,6 +639,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @ResetVehicle.started -= instance.OnResetVehicle;
             @ResetVehicle.performed -= instance.OnResetVehicle;
             @ResetVehicle.canceled -= instance.OnResetVehicle;
+            @MoveCameraMouse.started -= instance.OnMoveCameraMouse;
+            @MoveCameraMouse.performed -= instance.OnMoveCameraMouse;
+            @MoveCameraMouse.canceled -= instance.OnMoveCameraMouse;
+            @MoveCameraJoystick.started -= instance.OnMoveCameraJoystick;
+            @MoveCameraJoystick.performed -= instance.OnMoveCameraJoystick;
+            @MoveCameraJoystick.canceled -= instance.OnMoveCameraJoystick;
         }
 
         public void RemoveCallbacks(IDrivingActions instance)
@@ -510,5 +689,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnBrake(InputAction.CallbackContext context);
         void OnHandbrake(InputAction.CallbackContext context);
         void OnResetVehicle(InputAction.CallbackContext context);
+        void OnMoveCameraMouse(InputAction.CallbackContext context);
+        void OnMoveCameraJoystick(InputAction.CallbackContext context);
     }
 }

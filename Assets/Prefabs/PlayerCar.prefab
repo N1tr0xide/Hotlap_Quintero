@@ -749,7 +749,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55b51251577f3f445a8aa17cefbc2dae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: {x: 0, y: 2.386, z: -5.259}
+  _offset: {x: 0, y: 3, z: -6}
+  _mouseRotationSpeed: 2
 --- !u!1 &1414768780005600262
 GameObject:
   m_ObjectHideFlags: 0
