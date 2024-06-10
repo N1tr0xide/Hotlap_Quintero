@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : WheelController
 {
     [SerializeField] private CarConfiguration _carConfig;
+    [SerializeField] private CarLightsController _lightsController;
     private Rigidbody _rb;
     private RaceManager _raceManager;
     private PlayerInputActions _playerInputActions;
@@ -27,6 +28,7 @@ public class PlayerController : WheelController
     void Awake()
     {
         _rb = GetComponent<Rigidbody>();
+        _lightsController = GetComponentInChildren<CarLightsController>();
         WheelsThatSteer = GetFilteredWheels(WheelFilters.Steer);
         PoweredWheels = SetDrive(_carConfig.Drive);
         HandbrakeWheels = GetFilteredWheels(WheelFilters.IsRearWheel);
@@ -39,12 +41,16 @@ public class PlayerController : WheelController
         _playerInputActions.Driving.GearUp.performed += GearUp;
         _playerInputActions.Driving.GearDown.performed += GearDown;
         _playerInputActions.Driving.ResetVehicle.performed += _ => transform.position += new Vector3(0, 1, 0); 
+        _playerInputActions.Driving.Brake.performed += _ => _lightsController.SetBrakeLightsActive(true);
+        _playerInputActions.Driving.Brake.canceled += _ => _lightsController.SetBrakeLightsActive(false);
     }
 
     void Update()
     {
         Kph = _rb.velocity.magnitude * 3.6f;
         ApplyTireSquealSound(Kph);
+        
+        if(Input.GetKeyDown(KeyCode.H)) _lightsController.SetHeadLightsActive(!_lightsController.HeadLightsEnabled);
     }
 
     // Update is called once per frame
@@ -77,6 +83,7 @@ public class PlayerController : WheelController
         if (_reverseActive)
         {
             _reverseActive = false;
+            _lightsController.SetReverseLightsActive(false);
             _rb.drag = _standardDrag;
         }
         
@@ -94,6 +101,7 @@ public class PlayerController : WheelController
 
         if (!(Kph < 5f)) return;
         _reverseActive = true;
+        _lightsController.SetReverseLightsActive(true);
         _rb.drag = 1;
     }
 
