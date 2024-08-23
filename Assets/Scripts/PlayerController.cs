@@ -16,6 +16,8 @@ public class PlayerController : WheelController
     private float _steeringInput;
     private bool _handbrakeInput;
     private bool _reverseActive;
+    private bool _clutchActive;
+    private bool _shiftingUp, _shiftingDown;
 
     public float Kph { get; private set; }
     public float CurrentRpm { get; private set; }
@@ -49,7 +51,6 @@ public class PlayerController : WheelController
     {
         Kph = _rb.velocity.magnitude * 3.6f;
         ApplyTireSquealSound(Kph);
-        
         if(Input.GetKeyDown(KeyCode.H)) _lightsController.SetHeadLightsActive(!_lightsController.HeadLightsEnabled);
     }
 
@@ -88,7 +89,7 @@ public class PlayerController : WheelController
         }
         
         CurrentGear++;
-        CurrentRpm -= CurrentRpm / (CurrentGear + 1);
+        StartCoroutine(ApplyShiftUpClutch());
     }
 
     private void GearDown(InputAction.CallbackContext context)
@@ -96,6 +97,8 @@ public class PlayerController : WheelController
         if (CurrentGear > 0)
         {
             CurrentGear--;
+            StartCoroutine(ApplyShiftDownClutch());
+            StartCoroutine(ApplyDragForSeconds(.5f));
             return;
         }
 
@@ -107,12 +110,57 @@ public class PlayerController : WheelController
 
     #endregion
 
-    private void UpdateEnginePower(CarConfiguration cc) 
+    private void UpdateEnginePower(CarConfiguration cc)
     {
-        float wheelsRpm = GetWheelsTotalRpm() * cc.GearRatios[CurrentGear] * cc.DifferentialRatio;
-        CurrentRpm = Mathf.Lerp(CurrentRpm, Mathf.Max(1000, wheelsRpm), Time.deltaTime * 2.5f);
-        _currentTorque = cc.HpToRpmCurve.Evaluate(CurrentRpm / cc.RpmRedLine) * (cc.HorsePower / CurrentRpm) * cc.GearRatios[CurrentGear] *
-                         cc.DifferentialRatio * 5252f ;
+        if (!_clutchActive)
+        {
+            float wheelsRpm = GetWheelsTotalRpm() * cc.GearRatios[CurrentGear] * cc.DifferentialRatio;
+            CurrentRpm = Mathf.Lerp(CurrentRpm, Mathf.Max(1000, wheelsRpm), Time.deltaTime * cc.GearRatios[CurrentGear]);
+            CurrentRpm = Mathf.Clamp(CurrentRpm, 1000, RpmRedLine);
+            _currentTorque = cc.HpToRpmCurve.Evaluate(CurrentRpm / cc.RpmRedLine) * (cc.HorsePower / CurrentRpm) * cc.GearRatios[CurrentGear] *
+                             cc.DifferentialRatio * 5252f;
+        }
+        else
+        {
+            if (_shiftingUp)
+            {
+                CurrentRpm = Mathf.Lerp(CurrentRpm, 1000, Time.deltaTime * cc.GearRatios[CurrentGear]);
+                _currentTorque = 0;
+            }
+            else if(_shiftingDown)
+            {
+                float wheelsRpm = GetWheelsTotalRpm() * cc.GearRatios[CurrentGear] * cc.DifferentialRatio;
+                CurrentRpm = Mathf.Lerp(CurrentRpm, Mathf.Max(1000, wheelsRpm), Time.deltaTime * cc.GearRatios[CurrentGear]);
+                CurrentRpm = Mathf.Clamp(CurrentRpm, 1000, RpmRedLine);
+                _currentTorque = cc.HpToRpmCurve.Evaluate(CurrentRpm / cc.RpmRedLine) * (cc.HorsePower / CurrentRpm) * cc.GearRatios[CurrentGear] *
+                                 cc.DifferentialRatio * 5252f;
+            }
+        }
+    }
+
+    private IEnumerator ApplyShiftUpClutch()
+    {
+        _clutchActive = true;
+        _shiftingUp = true;
+        yield return new WaitForSeconds(.5f);
+        _clutchActive = false;
+        _shiftingUp = false;
+    }
+    
+    private IEnumerator ApplyShiftDownClutch()
+    {
+        _clutchActive = true;
+        _shiftingDown = true;
+        yield return new WaitForSeconds(.5f);
+        _clutchActive = false;
+        _shiftingDown = false;
+    }
+
+    private IEnumerator ApplyDragForSeconds(float seconds)
+    {
+        _rb.drag = 0.75f;
+        yield return new WaitWhile(()=> GetWheelsTotalRpm() > _currentTorque);
+        _rb.drag = _standardDrag;
     }
 
     private void ApplyDownforce(float downforceValue)

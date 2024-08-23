@@ -16,7 +16,7 @@ MonoBehaviour:
   Abs: 1
   HorsePower: 600
   RpmRedLine: 9000
-  DifferentialRatio: 6
+  DifferentialRatio: 12
   HpToRpmCurve:
     serializedVersion: 2
     m_Curve:
@@ -30,8 +30,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.9855957
-      value: 1.001152
+      time: 0.94799805
+      value: 0.99654007
       inSlope: 0.42505264
       outSlope: 0.42505264
       tangentMode: 0
@@ -51,11 +51,11 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   GearRatios:
-  - 2
-  - 1.8
-  - 1.5
+  - 1.7
   - 1.2
-  - 1
+  - 0.9
+  - 0.7
+  - 0.5
   BrakeForce: 10000
   HandBrakeForce: 5000
   Downforce: 50

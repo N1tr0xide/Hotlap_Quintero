@@ -27,7 +27,7 @@ public class CarLightsController : MonoBehaviour
         _brakeLightIntensity = _brakeLightL.intensity;
         _brakeSpotLightIntensity = _brakeSpotLightLeft.intensity;
 
-        SetHeadLightsActive(false);
+        SetHeadLightsActive(true);
         SetBrakeLightsActive(false);
         SetReverseLightsActive(false);
     }

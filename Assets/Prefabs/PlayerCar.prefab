@@ -1468,9 +1468,10 @@ MonoBehaviour:
     AudioSource: {fileID: 668449680220265228}
   RearTrackWidth: 1.5560291
   WheelBase: 2.6821923
-  WheelRadius: 3
+  WheelRadius: 5
   _carConfig: {fileID: 11400000, guid: 0360fcb3ffb44d649bcc3e213b0dfafa, type: 2}
-  _lightsController: {fileID: 0}
+  _lightsController: {fileID: 3213242863887996151}
+  clutchActive: 0
 --- !u!114 &2553500753612488170
 MonoBehaviour:
   m_ObjectHideFlags: 0
