@@ -85,7 +85,6 @@ public class PlayerController : WheelController
         {
             _reverseActive = false;
             _lightsController.SetReverseLightsActive(false);
-            _rb.drag = _standardDrag;
             return;
         }
         
@@ -106,7 +105,6 @@ public class PlayerController : WheelController
         if (!(Kph < 5f)) return;
         _reverseActive = true;
         _lightsController.SetReverseLightsActive(true);
-        _rb.drag = 1;
     }
 
     #endregion
@@ -115,7 +113,7 @@ public class PlayerController : WheelController
     {
         if (!_clutchActive)
         {
-            float wheelsRpm = GetWheelsTotalRpm() * cc.GearRatios[CurrentGear] * cc.DifferentialRatio;
+            float wheelsRpm = GetWheelsAvgRpm() * cc.GearRatios[CurrentGear] * cc.DifferentialRatio;
             CurrentRpm = Mathf.Lerp(CurrentRpm, Mathf.Max(1000, wheelsRpm), Time.deltaTime * cc.GearRatios[CurrentGear]);
             CurrentRpm = Mathf.Clamp(CurrentRpm, 1000, RpmRedLine);
             _currentTorque = cc.HpToRpmCurve.Evaluate(CurrentRpm / cc.RpmRedLine) * (cc.HorsePower / CurrentRpm) * cc.GearRatios[CurrentGear] *
@@ -130,7 +128,7 @@ public class PlayerController : WheelController
         }
         else if(_shiftingDown)
         {
-            float wheelsRpm = GetWheelsTotalRpm() * cc.GearRatios[CurrentGear] * cc.DifferentialRatio;
+            float wheelsRpm = GetWheelsAvgRpm() * cc.GearRatios[CurrentGear] * cc.DifferentialRatio;
             CurrentRpm = Mathf.Lerp(CurrentRpm, Mathf.Max(1000, wheelsRpm), Time.deltaTime * cc.GearRatios[CurrentGear]);
             CurrentRpm = Mathf.Clamp(CurrentRpm, 1000, RpmRedLine);
             _currentTorque = cc.HpToRpmCurve.Evaluate(CurrentRpm / cc.RpmRedLine) * (cc.HorsePower / CurrentRpm) * cc.GearRatios[CurrentGear] *
@@ -159,7 +157,7 @@ public class PlayerController : WheelController
     private IEnumerator ApplyDragForSeconds(float seconds)
     {
         _rb.drag = 0.75f;
-        yield return new WaitWhile(()=> GetWheelsTotalRpm() > _currentTorque);
+        yield return new WaitWhile(()=> GetWheelsAvgRpm() > _currentTorque);
         _rb.drag = _standardDrag;
     }
 

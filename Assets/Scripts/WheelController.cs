@@ -35,7 +35,7 @@ public class WheelController : MonoBehaviour
         foreach (var wheel in Wheels)
         {
             float wheelRadPerSec = wheel.Collider.rotationSpeed * 0.017453f;
-            float wheelKph = 3.6f * WheelRadius * wheelRadPerSec;
+            float wheelKph = Mathf.Abs(3.6f * WheelRadius * wheelRadPerSec);
 
             wheel.Collider.brakeTorque = useAbs switch
             {
@@ -94,7 +94,7 @@ public class WheelController : MonoBehaviour
         return Vector3.Distance(wheelOne.Collider.transform.position, wheelTwo.Collider.transform.position);
     }
 
-    protected float GetWheelsTotalRpm()
+    protected float GetWheelsAvgRpm()
     {
         float rpmSum = 0;
 
@@ -103,7 +103,7 @@ public class WheelController : MonoBehaviour
             rpmSum += Wheels[i].Collider.rpm;
         }
 
-        return Wheels.Length != 0 ? rpmSum / Wheels.Length : 0;
+        return Wheels.Length != 0 ? Mathf.Abs(rpmSum / Wheels.Length) : 0;
     }
     
     protected Wheel[] GetFilteredWheels(WheelFilters filter)
