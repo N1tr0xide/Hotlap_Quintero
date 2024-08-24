@@ -18,9 +18,10 @@ public class WheelController : MonoBehaviour
         foreach (var wheel in Wheels)
         {
             wheel.Collider.GetGroundHit(out WheelHit hit);
-            float slipValue = Mathf.Abs(hit.forwardSlip);
+            float forwardSlipValue = Mathf.Abs(hit.forwardSlip);
+            float sidewaysSlipValue = Mathf.Abs(hit.sidewaysSlip);
 
-            if(hit.collider && slipValue >= .7f && carKph > 10)
+            if(hit.collider && carKph > 10 && (forwardSlipValue >= .7f || sidewaysSlipValue >= .4f))
             {
                 wheel.AudioSource.volume = Mathf.MoveTowards(wheel.AudioSource.volume, 1, Time.deltaTime);
                 return;
