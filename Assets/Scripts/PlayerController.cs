@@ -14,6 +14,7 @@ public class PlayerController : WheelController
     
     private float _currentTorque, _standardDrag;
     private float _steeringInput;
+    private float _brakeInput;
     private bool _handbrakeInput;
     private bool _reverseActive;
     private bool _clutchActive;
@@ -50,6 +51,7 @@ public class PlayerController : WheelController
     void Update()
     {
         Kph = _rb.velocity.magnitude * 3.6f;
+        _brakeInput = _playerInputActions.Driving.Brake.ReadValue<float>();
         ApplyTireSquealSound(Kph);
         if(Input.GetKeyDown(KeyCode.H)) _lightsController.SetHeadLightsActive(!_lightsController.HeadLightsEnabled);
     }
@@ -59,7 +61,7 @@ public class PlayerController : WheelController
     {
         UpdateEnginePower(_carConfig);
         ApplySteering(WheelsThatSteer, _playerInputActions.Driving.Steering.ReadValue<float>());
-        ApplyBraking(_playerInputActions.Driving.Brake.ReadValue<float>() * _carConfig.BrakeForce, _carConfig.Abs, Kph);
+        ApplyBraking(_brakeInput * _carConfig.BrakeForce, _carConfig.Abs, _carConfig.AbsThreshold, Kph);
         ApplyHandbrake(_carConfig.HandBrakeForce * _playerInputActions.Driving.Handbrake.ReadValue<float>());
 
         if (_reverseActive)

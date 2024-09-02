@@ -31,7 +31,7 @@ public class WheelController : MonoBehaviour
         }
     }
     
-    protected void ApplyBraking(float brakeForce, bool useAbs, float carKph)
+    protected void ApplyBraking(float brakeForce, bool useAbs, float absThreshold ,float carKph)
     {
         foreach (var wheel in Wheels)
         {
@@ -40,8 +40,8 @@ public class WheelController : MonoBehaviour
 
             wheel.Collider.brakeTorque = useAbs switch
             {
-                true when wheelKph < carKph - 10 && carKph > 30 => 0,
-                true when wheelKph > carKph + 10 && carKph > 30 => brakeForce * brakeForce,
+                true when wheelKph < carKph - 10 && carKph > absThreshold => 0,
+                true when wheelKph > carKph + 10 && carKph > absThreshold => brakeForce * brakeForce,
                 _ => brakeForce
             };
         }
@@ -80,12 +80,14 @@ public class WheelController : MonoBehaviour
             wheel.Collider.steerAngle = steeringInput switch
             {
                 > 0 => wheel.SideWheelIsOn == Wheel.Side.Left ?
-                    AckermanSteeringCalc(false, steeringInput)
-                    : AckermanSteeringCalc(true, steeringInput),
-                < 0 => wheel.SideWheelIsOn == Wheel.Side.Right ?
-                    AckermanSteeringCalc(false, steeringInput)
-                    : AckermanSteeringCalc(true, steeringInput),
-                _ => 0
+                    Mathf.Lerp(wheel.Collider.steerAngle, AckermanSteeringCalc(false, steeringInput), Time.deltaTime * WheelRadius) 
+                    : Mathf.Lerp(wheel.Collider.steerAngle, AckermanSteeringCalc(true, steeringInput), Time.deltaTime * WheelRadius),  //AckermanSteeringCalc(true, steeringInput),
+                      < 0 => wheel.SideWheelIsOn == Wheel.Side.Right ?
+                    Mathf.Lerp(wheel.Collider.steerAngle, AckermanSteeringCalc(false, steeringInput), Time.deltaTime * WheelRadius) 
+                    : Mathf.Lerp(wheel.Collider.steerAngle, AckermanSteeringCalc(true, steeringInput), Time.deltaTime * WheelRadius), 
+                    /*AckermanSteeringCalc(false, steeringInput)
+                    : AckermanSteeringCalc(true, steeringInput),*/
+                _ => Mathf.Lerp(wheel.Collider.steerAngle, 0, Time.deltaTime * WheelRadius) //0
             };
         }
     }

@@ -1,0 +1,6 @@
+//Notes for wheel colliders:
+
+Use extremum value as a baseline for grip, then:
+extremum slip = 1/4 of extremum value.
+asymptote slip/value = 3/4 of extremum value.
+a higher extremum value means higher grip.

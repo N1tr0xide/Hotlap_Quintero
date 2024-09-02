@@ -1,58 +1,158 @@
 fileFormatVersion: 2
 guid: 8dcf477a4933f764e869d8a1a9b0f6d2
 ModelImporter:
-  serializedVersion: 23
-  fileIDToRecycleName:
-    100000: //RootNode
-    100002: Chev_Carbody
-    100004: Chev_Hood
-    100006: Chev_Wing
-    100008: Merc_Collision
-    100010: Susp_L
-    100012: Susp_R
-    100014: TRV6_Wheel
-    400000: //RootNode
-    400002: Chev_Carbody
-    400004: Chev_Hood
-    400006: Chev_Wing
-    400008: Merc_Collision
-    400010: Susp_L
-    400012: Susp_R
-    400014: TRV6_Wheel
-    2100000: M_Windows
-    2100002: M_Caje
-    2100004: M_Antenas
-    2100006: M_Opticas_Tras
-    2100008: M_Black
-    2100010: M_Engine
-    2100012: M_Wood
-    2100014: M_Interior
-    2100016: M_Seat
-    2100018: M_Carbody
-    2100020: M_Glass
-    2100022: M_Dash
-    2100024: M_Wheel
-    2300000: Chev_Carbody
-    2300002: Chev_Hood
-    2300004: Chev_Wing
-    2300006: Merc_Collision
-    2300008: Susp_L
-    2300010: Susp_R
-    2300012: TRV6_Wheel
-    3300000: Chev_Carbody
-    3300002: Chev_Hood
-    3300004: Chev_Wing
-    3300006: Merc_Collision
-    3300008: Susp_L
-    3300010: Susp_R
-    3300012: TRV6_Wheel
-    4300000: Chev_Carbody
-    4300002: Chev_Hood
-    4300004: Chev_Wing
-    4300006: Merc_Collision
-    4300008: TRV6_Wheel
-    4300010: Susp_L
-    4300012: Susp_R
+  serializedVersion: 22200
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: //RootNode
+  - first:
+      1: 100002
+    second: Chev_Carbody
+  - first:
+      1: 100004
+    second: Chev_Hood
+  - first:
+      1: 100006
+    second: Chev_Wing
+  - first:
+      1: 100008
+    second: Merc_Collision
+  - first:
+      1: 100010
+    second: Susp_L
+  - first:
+      1: 100012
+    second: Susp_R
+  - first:
+      1: 100014
+    second: TRV6_Wheel
+  - first:
+      4: 400000
+    second: //RootNode
+  - first:
+      4: 400002
+    second: Chev_Carbody
+  - first:
+      4: 400004
+    second: Chev_Hood
+  - first:
+      4: 400006
+    second: Chev_Wing
+  - first:
+      4: 400008
+    second: Merc_Collision
+  - first:
+      4: 400010
+    second: Susp_L
+  - first:
+      4: 400012
+    second: Susp_R
+  - first:
+      4: 400014
+    second: TRV6_Wheel
+  - first:
+      21: 2100000
+    second: M_Windows
+  - first:
+      21: 2100002
+    second: M_Caje
+  - first:
+      21: 2100004
+    second: M_Antenas
+  - first:
+      21: 2100006
+    second: M_Opticas_Tras
+  - first:
+      21: 2100008
+    second: M_Black
+  - first:
+      21: 2100010
+    second: M_Engine
+  - first:
+      21: 2100012
+    second: M_Wood
+  - first:
+      21: 2100014
+    second: M_Interior
+  - first:
+      21: 2100016
+    second: M_Seat
+  - first:
+      21: 2100018
+    second: M_Carbody
+  - first:
+      21: 2100020
+    second: M_Glass
+  - first:
+      21: 2100022
+    second: M_Dash
+  - first:
+      21: 2100024
+    second: M_Wheel
+  - first:
+      23: 2300000
+    second: Chev_Carbody
+  - first:
+      23: 2300002
+    second: Chev_Hood
+  - first:
+      23: 2300004
+    second: Chev_Wing
+  - first:
+      23: 2300006
+    second: Merc_Collision
+  - first:
+      23: 2300008
+    second: Susp_L
+  - first:
+      23: 2300010
+    second: Susp_R
+  - first:
+      23: 2300012
+    second: TRV6_Wheel
+  - first:
+      33: 3300000
+    second: Chev_Carbody
+  - first:
+      33: 3300002
+    second: Chev_Hood
+  - first:
+      33: 3300004
+    second: Chev_Wing
+  - first:
+      33: 3300006
+    second: Merc_Collision
+  - first:
+      33: 3300008
+    second: Susp_L
+  - first:
+      33: 3300010
+    second: Susp_R
+  - first:
+      33: 3300012
+    second: TRV6_Wheel
+  - first:
+      43: 4300000
+    second: Chev_Carbody
+  - first:
+      43: 4300002
+    second: Chev_Hood
+  - first:
+      43: 4300004
+    second: Chev_Wing
+  - first:
+      43: 4300006
+    second: Merc_Collision
+  - first:
+      43: 4300008
+    second: TRV6_Wheel
+  - first:
+      43: 4300010
+    second: Susp_L
+  - first:
+      43: 4300012
+    second: Susp_R
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -120,7 +220,7 @@ ModelImporter:
       name: M_Wood
     second: {fileID: 2100000, guid: 4e9b8c5a72d264f40aa6bc550c5da3d6, type: 2}
   materials:
-    importMaterials: 1
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -129,6 +229,7 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
     motionNodeName: 
     rigImportErrors: 
     rigImportWarnings: 
@@ -150,36 +251,51 @@ ModelImporter:
   meshes:
     lODScreenPercentages: []
     globalScale: 1
-    meshCompression: 0
+    meshCompression: 1
     addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
     importVisibility: 1
     importBlendShapes: 1
-    importCameras: 1
+    importCameras: 0
     importLights: 1
+    nodeNameCollisionStrategy: 0
+    fileIdsGeneration: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
-    weldVertices: 1
+    weldVertices: 0
+    bakeAxisConversion: 0
     preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 0
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 1
-    hasPreviousCalculatedGlobalScale: 0
+    strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
-  importAnimation: 1
-  copyAvatar: 0
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 0
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human: []
     skeleton: []
     armTwist: 0.5
@@ -189,14 +305,19 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 1
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 0
   humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  importBlendShapeDeformPercent: 0
+  remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0
   userData: 
   assetBundleName: 

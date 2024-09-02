@@ -10,6 +10,9 @@ public class CarConfiguration : ScriptableObject
 
     [Tooltip("Set to true to stop the wheels from locking up on braking. \nEspecially useful with really high brake forces.")] 
     public bool Abs;
+
+    [Tooltip("if ABS is active, and the car keeps rolling despite braking. \nUse this value to determine the minimum speed (in KPH) required for ABS to activate.")]
+    public int AbsThreshold;
     
     [Tooltip("Engine's Power")] 
     public float HorsePower;
