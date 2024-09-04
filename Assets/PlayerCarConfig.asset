@@ -17,7 +17,7 @@ MonoBehaviour:
   AbsThreshold: 40
   HorsePower: 600
   RpmRedLine: 9000
-  DifferentialRatio: 12
+  DifferentialRatio: 10
   HpToRpmCurve:
     serializedVersion: 2
     m_Curve:
@@ -31,17 +31,62 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.94799805
-      value: 0.99654007
-      inSlope: 0.42505264
-      outSlope: 0.42505264
+      time: 0.099408776
+      value: 0.20055589
+      inSlope: 1.2448117
+      outSlope: 1.2448117
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.016516231
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.2487047
+      value: 0.69860625
+      inSlope: 1.0842009
+      outSlope: 1.0842009
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.4018899
+      value: 0.99989706
+      inSlope: 0.4874264
+      outSlope: 0.4874264
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.6011219
+      value: 0.8799672
+      inSlope: -0.22289208
+      outSlope: -0.22289208
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.7525769
+      value: 0.7866221
+      inSlope: 0.00005568283
+      outSlope: 0.00005568283
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.2885654
       outWeight: 0
     - serializedVersion: 3
-      time: 0.99999994
-      value: 0.002306805
+      time: 0.9489633
+      value: 0.6991357
+      inSlope: -0.32725486
+      outSlope: -0.32725486
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.1711068
+      outWeight: 0.6560738
+    - serializedVersion: 3
+      time: 0.9981215
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -52,10 +97,10 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   GearRatios:
-  - 1.7
-  - 1.2
+  - 1.3
   - 0.9
   - 0.7
+  - 0.6
   - 0.5
   BrakeForce: 4500
   HandBrakeForce: 10000

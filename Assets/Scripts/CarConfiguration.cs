@@ -25,7 +25,7 @@ public class CarConfiguration : ScriptableObject
     
     [Tooltip("Use this to modify the way the engine delivers power and increases the RPM")]
     public AnimationCurve HpToRpmCurve;
-    
+
     [Tooltip("Use this to modify the length of each gear.\nA lower value makes a shorter gear that delivers power faster.")]
     public float[] GearRatios = new float[] {3, 2.5f, 2, 1.5f, 1};
     

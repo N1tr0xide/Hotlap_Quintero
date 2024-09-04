@@ -13,6 +13,7 @@ public class PlayerController : WheelController
     private PlayerInputActions _playerInputActions;
     
     private float _currentTorque, _standardDrag;
+    private float _power;
     private float _steeringInput;
     private float _brakeInput;
     private bool _handbrakeInput;
@@ -37,6 +38,7 @@ public class PlayerController : WheelController
         HandbrakeWheels = GetFilteredWheels(WheelFilters.IsRearWheel);
         _raceManager = FindFirstObjectByType<RaceManager>();
         _standardDrag = _rb.drag;
+        _power = _carConfig.HorsePower * 3.6f; // adapt horsepower to match real life results
         
         //player input actions
         _playerInputActions = new PlayerInputActions();
@@ -118,7 +120,7 @@ public class PlayerController : WheelController
             float wheelsRpm = GetWheelsAvgRpm() * cc.GearRatios[CurrentGear] * cc.DifferentialRatio;
             CurrentRpm = Mathf.Lerp(CurrentRpm, Mathf.Max(1000, wheelsRpm), Time.deltaTime * cc.GearRatios[CurrentGear]);
             CurrentRpm = Mathf.Clamp(CurrentRpm, 1000, RpmRedLine);
-            _currentTorque = cc.HpToRpmCurve.Evaluate(CurrentRpm / cc.RpmRedLine) * (cc.HorsePower / CurrentRpm) * cc.GearRatios[CurrentGear] *
+            _currentTorque = cc.HpToRpmCurve.Evaluate(CurrentRpm / cc.RpmRedLine) * (_power / CurrentRpm) * cc.GearRatios[CurrentGear] *
                              cc.DifferentialRatio * 5252f;
             return;
         }
@@ -133,7 +135,7 @@ public class PlayerController : WheelController
             float wheelsRpm = GetWheelsAvgRpm() * cc.GearRatios[CurrentGear] * cc.DifferentialRatio;
             CurrentRpm = Mathf.Lerp(CurrentRpm, Mathf.Max(1000, wheelsRpm), Time.deltaTime * cc.GearRatios[CurrentGear]);
             CurrentRpm = Mathf.Clamp(CurrentRpm, 1000, RpmRedLine);
-            _currentTorque = cc.HpToRpmCurve.Evaluate(CurrentRpm / cc.RpmRedLine) * (cc.HorsePower / CurrentRpm) * cc.GearRatios[CurrentGear] *
+            _currentTorque = cc.HpToRpmCurve.Evaluate(CurrentRpm / cc.RpmRedLine) * (_power / CurrentRpm) * cc.GearRatios[CurrentGear] *
                              cc.DifferentialRatio * 5252f;
         }
     }
