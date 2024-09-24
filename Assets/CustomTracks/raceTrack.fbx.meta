@@ -3,7 +3,17 @@ guid: 301585802da300a4184b7bce061635bd
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Asphalt.001
+    second: {fileID: 2100000, guid: 4f48b37c8404dd1468318ce0c776689c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WhiteLine.001
+    second: {fileID: 2100000, guid: 97fdfcae3b05a8742b9d794f454e78a2, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -78,7 +88,7 @@ ModelImporter:
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
   referencedClips: []
-  importAnimation: 1
+  importAnimation: 0
   humanDescription:
     serializedVersion: 3
     human: []
