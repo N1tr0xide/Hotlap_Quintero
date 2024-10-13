@@ -8,8 +8,8 @@ public class CarController : MonoBehaviour
 {
     [SerializeField] private CarConfiguration _carConfig;
     [SerializeField] protected float WheelRadius;
-    private CarLightsController _lightsController;
     [SerializeField] private Wheel[] _wheels = new Wheel[4];
+    private CarLightsController _lightsController;
     private Wheel[] _wheelsThatSteer;
     private Wheel[] _poweredWheels;
     private Wheel[] _handbrakeWheels;
@@ -25,6 +25,7 @@ public class CarController : MonoBehaviour
     private bool _reverseActive;
     private bool _clutchActive;
     private bool _shiftingUp, _shiftingDown;
+    private bool _allWheelsGrounded;
 
     public float Kph { get; private set; }
     public float CurrentRpm { get; private set; }
@@ -61,8 +62,27 @@ public class CarController : MonoBehaviour
         UpdateEnginePower(_carConfig);
         VisualWheelUpdate(_wheels);
         ApplyDownforce(_carConfig.Downforce);
+        CheckIfAllWheelsGrounded();
+        
+        gameObject.layer = LayerMask.NameToLayer(!_allWheelsGrounded ? "Default" : "Player"); //Used to avoid car collisions with the ground, avoiding bottoming out.
     }
-    
+
+    private void CheckIfAllWheelsGrounded()
+    {
+        _allWheelsGrounded = true;
+
+        foreach (var wheel in _wheels)
+        {
+            if (wheel.Collider.GetGroundHit(out WheelHit hitInfo))
+            {
+                continue;
+            }
+
+            _allWheelsGrounded = false;
+            break;
+        }
+    }
+
     private void UpdateEnginePower(CarConfiguration cc)
     {
         if (!_clutchActive)
@@ -89,47 +109,10 @@ public class CarController : MonoBehaviour
                              cc.DifferentialRatio * 5252f;
         }
     }
-
-    private IEnumerator ApplyShiftUpClutch()
-    {
-        _clutchActive = true;
-        _shiftingUp = true;
-        yield return new WaitForSeconds(.5f);
-        _clutchActive = false;
-        _shiftingUp = false;
-    }
     
-    private IEnumerator ApplyShiftDownClutch()
-    {
-        _clutchActive = true;
-        _shiftingDown = true;
-        yield return new WaitForSeconds(.5f);
-        _clutchActive = false;
-        _shiftingDown = false;
-    }
-
-    private IEnumerator ApplyDragForSeconds()
-    {
-        _rb.drag = 0.75f;
-        yield return new WaitWhile(()=> GetWheelsAvgRpm() > _currentTorque);
-        _rb.drag = _standardDrag;
-    }
-
     private void ApplyDownforce(float downforceValue)
     {
         _rb.AddForce(-transform.up * (downforceValue * _rb.velocity.magnitude));
-    }
-
-    private Wheel[] SetDrive(DriveType driveType)
-    {
-        Wheel[] w = driveType switch
-        {
-            DriveType.Fwd => GetFilteredWheels(WheelFilters.IsFrontWheel),
-            DriveType.Rwd => GetFilteredWheels(WheelFilters.IsRearWheel),
-            _ => _wheels
-        };
-
-        return w;
     }
 
     private void ApplyTireSquealSound(float carKph) 
@@ -158,6 +141,18 @@ public class CarController : MonoBehaviour
             wheel.WheelMesh.position = pos;
             wheel.WheelMesh.rotation = rot;
         }
+    }
+    
+    private Wheel[] SetDrive(DriveType driveType)
+    {
+        Wheel[] w = driveType switch
+        {
+            DriveType.Fwd => GetFilteredWheels(WheelFilters.IsFrontWheel),
+            DriveType.Rwd => GetFilteredWheels(WheelFilters.IsRearWheel),
+            _ => _wheels
+        };
+
+        return w;
     }
 
     private float GetWheelsAvgRpm() 
@@ -216,7 +211,7 @@ public class CarController : MonoBehaviour
             false => Mathf.Rad2Deg * Mathf.Atan(_wheelBase / (WheelRadius + (_rearTrackWidth / 2))) * input
         };
     }
-    
+
     #region Input Related
 
         public void ApplyAcceleration(float throttleInput) 
@@ -296,6 +291,35 @@ public class CarController : MonoBehaviour
             if (!(Kph < 5f)) return;
             _reverseActive = true;
             _lightsController.SetReverseLightsActive(true);
+        }
+
+    #endregion
+
+    #region Coroutines
+
+        private IEnumerator ApplyShiftUpClutch()
+        {
+            _clutchActive = true;
+            _shiftingUp = true;
+            yield return new WaitForSeconds(.5f);
+            _clutchActive = false;
+            _shiftingUp = false;
+        }
+        
+        private IEnumerator ApplyShiftDownClutch()
+        {
+            _clutchActive = true;
+            _shiftingDown = true;
+            yield return new WaitForSeconds(.5f);
+            _clutchActive = false;
+            _shiftingDown = false;
+        }
+
+        private IEnumerator ApplyDragForSeconds()
+        {
+            _rb.drag = 0.75f;
+            yield return new WaitWhile(()=> GetWheelsAvgRpm() > _currentTorque);
+            _rb.drag = _standardDrag;
         }
 
     #endregion

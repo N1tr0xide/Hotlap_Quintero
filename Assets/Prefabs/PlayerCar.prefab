@@ -523,7 +523,7 @@ WheelCollider:
   m_Center: {x: 0, y: 0.15, z: 0}
   m_Radius: 0.33
   m_SuspensionSpring:
-    spring: 46000
+    spring: 100000
     damper: 14000
     targetPosition: 0.65
   m_SuspensionDistance: 0.15
@@ -930,8 +930,8 @@ WheelCollider:
   m_Center: {x: 0, y: 0.15, z: 0}
   m_Radius: 0.33
   m_SuspensionSpring:
-    spring: 46000
-    damper: 19000
+    spring: 100000
+    damper: 14000
     targetPosition: 0.3
   m_SuspensionDistance: 0.15
   m_ForceAppPointDistance: -0.4
@@ -1418,24 +1418,40 @@ MonoBehaviour:
     WheelAxle: 0
     SideWheelIsOn: 0
     AudioSource: {fileID: 8071088912487408975}
+    IsGrounded: 0
+    LayerMaskBeingHit:
+      serializedVersion: 2
+      m_Bits: 0
   - Collider: {fileID: 7153605870508486491}
     WheelMesh: {fileID: 1953086157235789359}
     Steer: 1
     WheelAxle: 0
     SideWheelIsOn: 1
     AudioSource: {fileID: 7856996622153505444}
+    IsGrounded: 0
+    LayerMaskBeingHit:
+      serializedVersion: 2
+      m_Bits: 0
   - Collider: {fileID: 5599915079709415368}
     WheelMesh: {fileID: 7991495175612010515}
     Steer: 0
     WheelAxle: 1
     SideWheelIsOn: 0
     AudioSource: {fileID: 1116226977257079443}
+    IsGrounded: 0
+    LayerMaskBeingHit:
+      serializedVersion: 2
+      m_Bits: 0
   - Collider: {fileID: 4371337997671877749}
     WheelMesh: {fileID: 2250841132459685976}
     Steer: 0
     WheelAxle: 1
     SideWheelIsOn: 1
     AudioSource: {fileID: 668449680220265228}
+    IsGrounded: 0
+    LayerMaskBeingHit:
+      serializedVersion: 2
+      m_Bits: 0
 --- !u!114 &970673880439280562
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4460,8 +4476,8 @@ WheelCollider:
   m_Center: {x: 0, y: 0.15, z: 0}
   m_Radius: 0.33
   m_SuspensionSpring:
-    spring: 46000
-    damper: 19000
+    spring: 100000
+    damper: 14000
     targetPosition: 0.3
   m_SuspensionDistance: 0.15
   m_ForceAppPointDistance: -0.4
@@ -4923,7 +4939,7 @@ WheelCollider:
   m_Center: {x: 0, y: 0.15, z: 0}
   m_Radius: 0.33
   m_SuspensionSpring:
-    spring: 46000
+    spring: 100000
     damper: 14000
     targetPosition: 0.65
   m_SuspensionDistance: 0.15
