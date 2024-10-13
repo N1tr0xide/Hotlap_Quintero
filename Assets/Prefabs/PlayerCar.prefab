@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1633656266793387745}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Tires
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32,8 +32,8 @@ Transform:
   - {fileID: 130053179110980859}
   - {fileID: 8457837558744529816}
   - {fileID: 621413223880161367}
-  - {fileID: 7991495175612010515}
   - {fileID: 1953086157235789359}
+  - {fileID: 7991495175612010515}
   - {fileID: 2250841132459685976}
   m_Father: {fileID: 3245257177337329687}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -51,7 +51,7 @@ GameObject:
   - component: {fileID: 5136869553764491201}
   - component: {fileID: 6697840616921765837}
   - component: {fileID: 7211157057836990135}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: EngineAudio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ MonoBehaviour:
   _lowDecel: {fileID: 5136869553764491201}
   _highAccel: {fileID: 6697840616921765837}
   _highDecel: {fileID: 7211157057836990135}
-  _playerController: {fileID: 2562026081503090810}
+  _carController: {fileID: 8043917198154296842}
 --- !u!82 &6982179965107860172
 AudioSource:
   m_ObjectHideFlags: 0
@@ -491,7 +491,7 @@ GameObject:
   - component: {fileID: 7210931325139503176}
   - component: {fileID: 3456682492223796126}
   m_Layer: 0
-  m_Name: Tire_LF
+  m_Name: Tire_FL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -523,11 +523,11 @@ WheelCollider:
   m_Center: {x: 0, y: 0.15, z: 0}
   m_Radius: 0.33
   m_SuspensionSpring:
-    spring: 50000
-    damper: 20000
-    targetPosition: 0.5
-  m_SuspensionDistance: 0.05
-  m_ForceAppPointDistance: 0.1
+    spring: 46000
+    damper: 14000
+    targetPosition: 0.65
+  m_SuspensionDistance: 0.15
+  m_ForceAppPointDistance: -0.1
   m_Mass: 20
   m_WheelDampingRate: 1.5
   m_ForwardFriction:
@@ -562,7 +562,7 @@ GameObject:
   - component: {fileID: 6613005430720343131}
   - component: {fileID: 4716428045789846332}
   - component: {fileID: 5636342654618075168}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: rpmText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -641,7 +641,7 @@ GameObject:
   - component: {fileID: 4136483785364940127}
   - component: {fileID: 788005232096152750}
   - component: {fileID: 6930504576632038838}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -705,52 +705,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!1 &1209103105674991422
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4694041784079033455}
-  - component: {fileID: 4679891208064713413}
-  m_Layer: 0
-  m_Name: CameraTargetPos
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4694041784079033455
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1209103105674991422}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3245257177337329687}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4679891208064713413
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1209103105674991422}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55b51251577f3f445a8aa17cefbc2dae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _offset: {x: 0, y: 2, z: -4}
-  _mouseRotationSpeed: 2
 --- !u!1 &1414768780005600262
 GameObject:
   m_ObjectHideFlags: 0
@@ -762,7 +716,7 @@ GameObject:
   - component: {fileID: 2633458681848465898}
   - component: {fileID: 8014577150678418761}
   - component: {fileID: 6932144622946077051}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -837,7 +791,8 @@ GameObject:
   - component: {fileID: 4745618998554782901}
   - component: {fileID: 7451559930830571826}
   - component: {fileID: 8389905295196811798}
-  m_Layer: 0
+  - component: {fileID: 6939064498528438780}
+  m_Layer: 3
   m_Name: Chev_Hood
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -910,6 +865,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &6939064498528438780
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1450577451435919947}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300002, guid: 8dcf477a4933f764e869d8a1a9b0f6d2, type: 3}
 --- !u!1 &1472906989990049559
 GameObject:
   m_ObjectHideFlags: 0
@@ -953,11 +930,11 @@ WheelCollider:
   m_Center: {x: 0, y: 0.15, z: 0}
   m_Radius: 0.33
   m_SuspensionSpring:
-    spring: 50000
-    damper: 20000
-    targetPosition: 0.5
+    spring: 46000
+    damper: 19000
+    targetPosition: 0.3
   m_SuspensionDistance: 0.15
-  m_ForceAppPointDistance: 0.1
+  m_ForceAppPointDistance: -0.4
   m_Mass: 20
   m_WheelDampingRate: 1.5
   m_ForwardFriction:
@@ -991,7 +968,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1167178976160236551}
   - component: {fileID: 9051686937464960621}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: SpotLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1085,7 +1062,7 @@ GameObject:
   m_Component:
   - component: {fileID: 186149956085784855}
   - component: {fileID: 1865291317699403718}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: BrakeSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1175,7 +1152,7 @@ GameObject:
   - component: {fileID: 9010072334640320384}
   - component: {fileID: 1098823043337059907}
   - component: {fileID: 6742046079221872781}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: GearPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1250,7 +1227,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3479262638871605035}
   - component: {fileID: 3262517967675841039}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: SpotLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1345,8 +1322,10 @@ GameObject:
   - component: {fileID: 3245257177337329687}
   - component: {fileID: 7072109145483958572}
   - component: {fileID: 2562026081503090810}
+  - component: {fileID: 8043917198154296842}
+  - component: {fileID: 970673880439280562}
   - component: {fileID: 2553500753612488170}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: PlayerCar
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1372,10 +1351,8 @@ Transform:
   - {fileID: 2396630779016886807}
   - {fileID: 1836720799465687750}
   - {fileID: 3090800887512646813}
-  - {fileID: 1379965980039059339}
   - {fileID: 1633656266793387745}
   - {fileID: 1384319307653701257}
-  - {fileID: 4694041784079033455}
   - {fileID: 2196170965619258408}
   - {fileID: 8615326874101745107}
   - {fileID: 7241683819086720832}
@@ -1420,36 +1397,57 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06858a4450272e449b49b6a9a4173d63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Wheels:
+--- !u!114 &8043917198154296842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3059981170754531347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5f7f4b7bedc1d740933ddc029e5d183, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _carConfig: {fileID: 11400000, guid: 0360fcb3ffb44d649bcc3e213b0dfafa, type: 2}
+  WheelRadius: 5
+  _wheels:
   - Collider: {fileID: 3456682492223796126}
     WheelMesh: {fileID: 621413223880161367}
     Steer: 1
     WheelAxle: 0
     SideWheelIsOn: 0
     AudioSource: {fileID: 8071088912487408975}
-  - Collider: {fileID: 5599915079709415368}
-    WheelMesh: {fileID: 7991495175612010515}
-    Steer: 0
-    WheelAxle: 1
-    SideWheelIsOn: 0
-    AudioSource: {fileID: 1116226977257079443}
   - Collider: {fileID: 7153605870508486491}
     WheelMesh: {fileID: 1953086157235789359}
     Steer: 1
     WheelAxle: 0
     SideWheelIsOn: 1
     AudioSource: {fileID: 7856996622153505444}
+  - Collider: {fileID: 5599915079709415368}
+    WheelMesh: {fileID: 7991495175612010515}
+    Steer: 0
+    WheelAxle: 1
+    SideWheelIsOn: 0
+    AudioSource: {fileID: 1116226977257079443}
   - Collider: {fileID: 4371337997671877749}
     WheelMesh: {fileID: 2250841132459685976}
     Steer: 0
     WheelAxle: 1
     SideWheelIsOn: 1
     AudioSource: {fileID: 668449680220265228}
-  RearTrackWidth: 1.5560291
-  WheelBase: 2.6821923
-  WheelRadius: 5
-  _carConfig: {fileID: 11400000, guid: 0360fcb3ffb44d649bcc3e213b0dfafa, type: 2}
-  _lightsController: {fileID: 3213242863887996151}
+--- !u!114 &970673880439280562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3059981170754531347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8dd88fc51fc1e94ca12e76c3ddbb29e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2553500753612488170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1478,7 +1476,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6707996802850165440}
   - component: {fileID: 434835410660768163}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: HeadLightLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1575,7 +1573,7 @@ GameObject:
   - component: {fileID: 1094914030464833919}
   - component: {fileID: 1285575113028299054}
   - component: {fileID: 596717411120393796}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Calliper_LF
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1657,7 +1655,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5053921750522366609}
   - component: {fileID: 7038797309726375189}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ReverseLightRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1752,7 +1750,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4915103468499643323}
   - component: {fileID: 8742568761085166355}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: SecondaryHeadlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1847,7 +1845,7 @@ GameObject:
   - component: {fileID: 1836720799465687750}
   - component: {fileID: 7838144585074386721}
   - component: {fileID: 4049442481931288769}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Susp_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1930,7 +1928,7 @@ GameObject:
   - component: {fileID: 4596065321617821919}
   - component: {fileID: 7315766192203255903}
   - component: {fileID: 2390675741178666361}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2005,7 +2003,8 @@ GameObject:
   - component: {fileID: 2704167829174079208}
   - component: {fileID: 3685991191410091688}
   - component: {fileID: 377882890469674685}
-  m_Layer: 0
+  - component: {fileID: 5847918096639825072}
+  m_Layer: 3
   m_Name: Chev_Carbody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2086,6 +2085,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &5847918096639825072
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4127428221757386726}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 8dcf477a4933f764e869d8a1a9b0f6d2, type: 3}
 --- !u!1 &4179515223230330298
 GameObject:
   m_ObjectHideFlags: 0
@@ -2096,7 +2117,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3961038011881064627}
   - component: {fileID: 7580793721762794944}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: econdaryHeadlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2190,7 +2211,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4972164624394497850}
   - component: {fileID: 7076657982995162144}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: BrakeLightLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2286,7 +2307,8 @@ GameObject:
   - component: {fileID: 5801752619577798656}
   - component: {fileID: 5553524846060707947}
   - component: {fileID: 4303119489742444390}
-  m_Layer: 0
+  - component: {fileID: 7084972799929456599}
+  m_Layer: 3
   m_Name: Chev_Wing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2358,6 +2380,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &7084972799929456599
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4470378198472679139}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300004, guid: 8dcf477a4933f764e869d8a1a9b0f6d2, type: 3}
 --- !u!1 &4547605515201406956
 GameObject:
   m_ObjectHideFlags: 0
@@ -2369,7 +2413,7 @@ GameObject:
   - component: {fileID: 8434433553263366677}
   - component: {fileID: 5917475206410044785}
   - component: {fileID: 131913154826173125}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2443,7 +2487,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6625208224688736177}
   - component: {fileID: 7443556854673950943}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: BrakeLightRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2540,8 +2584,8 @@ GameObject:
   - component: {fileID: 5820393396822424638}
   - component: {fileID: 3740069311534064094}
   - component: {fileID: 1116226977257079443}
-  m_Layer: 0
-  m_Name: Tire_LR
+  m_Layer: 3
+  m_Name: Tire_RL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2795,8 +2839,8 @@ GameObject:
   - component: {fileID: 130053179110980859}
   - component: {fileID: 261678550198249289}
   - component: {fileID: 3750678506754933348}
-  m_Layer: 0
-  m_Name: Calliper_LR
+  m_Layer: 3
+  m_Name: Calliper_RL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2876,7 +2920,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7445671115369250088}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2914,7 +2958,7 @@ GameObject:
   - component: {fileID: 6993735524522290966}
   - component: {fileID: 3426945463139550753}
   - component: {fileID: 7449156788202323332}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: GearNumberText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2982,81 +3026,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 5
---- !u!1 &5742554580352880590
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1379965980039059339}
-  - component: {fileID: 1737971819983302491}
-  - component: {fileID: 7768077292243149016}
-  m_Layer: 0
-  m_Name: Collider
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1379965980039059339
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5742554580352880590}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0.017190617, y: 0, z: 0, w: 0.99985224}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3245257177337329687}
-  m_LocalEulerAnglesHint: {x: 1.97, y: 0, z: 0}
---- !u!65 &1737971819983302491
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5742554580352880590}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.8957026, y: 0.9000002, z: 3.0475976}
-  m_Center: {x: 0.00000089348504, y: 0.59998226, z: -0.6262013}
---- !u!65 &7768077292243149016
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5742554580352880590}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.8957276, y: 0.631698, z: 1.2700168}
-  m_Center: {x: -0.00001182682, y: 0.46581894, z: 1.53465}
 --- !u!1 &5790396256540441631
 GameObject:
   m_ObjectHideFlags: 0
@@ -3067,7 +3036,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2430733747346750028}
   - component: {fileID: 9082261370947788674}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: HeadLightRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3163,7 +3132,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7241683819086720832}
   - component: {fileID: 3213242863887996151}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Lights
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3218,7 +3187,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 305126813413808341}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3256,7 +3225,7 @@ GameObject:
   - component: {fileID: 8457837558744529816}
   - component: {fileID: 5848807131239562586}
   - component: {fileID: 1074856006481604073}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Calliper_RR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3339,7 +3308,7 @@ GameObject:
   - component: {fileID: 5170284437547629205}
   - component: {fileID: 7047581421194515858}
   - component: {fileID: 4332580228461193920}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Calliper_RF
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3441,8 +3410,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7210931325139503176}
-  - {fileID: 2582446628865189153}
   - {fileID: 613273178084250474}
+  - {fileID: 2582446628865189153}
   - {fileID: 5175948788687321936}
   m_Father: {fileID: 3245257177337329687}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3458,7 +3427,7 @@ GameObject:
   - component: {fileID: 1132808374682149554}
   - component: {fileID: 8647948017141040007}
   - component: {fileID: 668449680220265228}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Tire_RR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3713,7 +3682,7 @@ GameObject:
   - component: {fileID: 3090800887512646813}
   - component: {fileID: 3850055507830652220}
   - component: {fileID: 8249439438565393416}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: TRV6_Wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3796,7 +3765,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3005915413240062934}
   - component: {fileID: 4030090176345383736}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: SpotLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3891,7 +3860,7 @@ GameObject:
   - component: {fileID: 2396630779016886807}
   - component: {fileID: 6501419214516513449}
   - component: {fileID: 6054958896721313948}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Susp_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3972,7 +3941,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 119554439198535497}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: HUDPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4014,8 +3983,8 @@ GameObject:
   - component: {fileID: 6784343058399565586}
   - component: {fileID: 8899637501529414592}
   - component: {fileID: 8071088912487408975}
-  m_Layer: 0
-  m_Name: Tire_LF
+  m_Layer: 3
+  m_Name: Tire_FL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4269,7 +4238,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1902289196491566929}
   - component: {fileID: 3628174729564770849}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: SpotLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4363,7 +4332,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5966221547990094736}
   - component: {fileID: 4353293815834870232}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ReverseLightLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4459,7 +4428,7 @@ GameObject:
   - component: {fileID: 2582446628865189153}
   - component: {fileID: 5599915079709415368}
   m_Layer: 0
-  m_Name: Tire_LR
+  m_Name: Tire_RL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4491,11 +4460,11 @@ WheelCollider:
   m_Center: {x: 0, y: 0.15, z: 0}
   m_Radius: 0.33
   m_SuspensionSpring:
-    spring: 50000
-    damper: 20000
-    targetPosition: 0.5
+    spring: 46000
+    damper: 19000
+    targetPosition: 0.3
   m_SuspensionDistance: 0.15
-  m_ForceAppPointDistance: 0.1
+  m_ForceAppPointDistance: -0.4
   m_Mass: 20
   m_WheelDampingRate: 1.5
   m_ForwardFriction:
@@ -4531,7 +4500,7 @@ GameObject:
   - component: {fileID: 3668674823731895987}
   - component: {fileID: 5525993259546479726}
   - component: {fileID: 1076124127281409689}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: CarStatusPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4633,7 +4602,7 @@ GameObject:
   - component: {fileID: 6238557564853589877}
   - component: {fileID: 4772587242494472134}
   - component: {fileID: 6364414628636299810}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: UICanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4733,7 +4702,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2968342011860709617}
   - component: {fileID: 1938563212887713148}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: SpotLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4827,7 +4796,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5671086271711804860}
   - component: {fileID: 3658351356556460403}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: SpotLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4922,7 +4891,7 @@ GameObject:
   - component: {fileID: 613273178084250474}
   - component: {fileID: 7153605870508486491}
   m_Layer: 0
-  m_Name: Tire_RF
+  m_Name: Tire_FR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4954,11 +4923,11 @@ WheelCollider:
   m_Center: {x: 0, y: 0.15, z: 0}
   m_Radius: 0.33
   m_SuspensionSpring:
-    spring: 50000
-    damper: 20000
-    targetPosition: 0.5
-  m_SuspensionDistance: 0.05
-  m_ForceAppPointDistance: 0.1
+    spring: 46000
+    damper: 14000
+    targetPosition: 0.65
+  m_SuspensionDistance: 0.15
+  m_ForceAppPointDistance: -0.1
   m_Mass: 20
   m_WheelDampingRate: 1.5
   m_ForwardFriction:
@@ -4992,7 +4961,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6192899597762481004}
   - component: {fileID: 4709017924289959875}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: ThrottleSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5082,7 +5051,7 @@ GameObject:
   - component: {fileID: 4322188724109705086}
   - component: {fileID: 7407267786616169621}
   - component: {fileID: 1843628705717470409}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: SpeedText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5162,8 +5131,8 @@ GameObject:
   - component: {fileID: 8992357722693457169}
   - component: {fileID: 5132286116610195753}
   - component: {fileID: 7856996622153505444}
-  m_Layer: 0
-  m_Name: Tire_RF
+  m_Layer: 3
+  m_Name: Tire_FR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

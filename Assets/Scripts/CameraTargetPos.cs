@@ -23,6 +23,11 @@ public class CameraTargetPos : MonoBehaviour
         _timer = 3.6f;
     }
     
+    private void OnDisable()
+    {
+        _playerInputActions.Driving.Disable();
+    }
+    
     void Update()
     {
         _timer = _playerInputActions.Driving.MoveCameraMouse.ReadValue<float>() == 0 &&

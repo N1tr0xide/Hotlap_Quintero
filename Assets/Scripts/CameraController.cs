@@ -7,7 +7,7 @@ public class CameraController : MonoBehaviour
 {
     [SerializeField] private GameObject _player;
     private Camera _camera;
-    private PlayerController _playerController;
+    private CarController _playerCarController;
     private GameObject _targetPos;
 
     private float _speed, _defaultFOV;
@@ -19,7 +19,7 @@ public class CameraController : MonoBehaviour
         _camera = Camera.main;
         _defaultFOV = _camera.fieldOfView;
         _targetPos = _player.GetComponentInChildren<CameraTargetPos>().gameObject;
-        _playerController = _player.GetComponent<PlayerController>();
+        _playerCarController = _player.GetComponent<CarController>();
     }
 
     // Update is called once per frame
@@ -30,7 +30,7 @@ public class CameraController : MonoBehaviour
 
     private void FollowTarget(Vector3 target)
     {
-        _speed = _playerController.Kph < 1? Vector3.Distance(transform.position, target) : Mathf.Lerp(_speed, _playerController.Kph / 3, Time.deltaTime);
+        _speed = _playerCarController.Kph < 1? Vector3.Distance(transform.position, target) : Mathf.Lerp(_speed, _playerCarController.Kph / 3, Time.deltaTime);
         transform.position = Vector3.Lerp(transform.position, target, Time.deltaTime * _speed);
         transform.LookAt(_player.transform);
     }

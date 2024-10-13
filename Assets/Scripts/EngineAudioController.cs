@@ -12,15 +12,14 @@ public class EngineAudioController : MonoBehaviour
         _dopplerLevel = 1;
     [SerializeField] private bool _useDoppler = true;
     [SerializeField] private AudioSource _lowAccel, _lowDecel, _highAccel, _highDecel;
-
-    [SerializeField] private PlayerController _playerController;
+    [SerializeField] private CarController _carController;
 
     // Update is called once per frame
     void Update()
     {
         //interpolate pitch from revs
         float pitch = Mathf.Lerp(_lowPitchMin, _lowPitchMax,
-            _playerController.CurrentRpm / _playerController.RpmRedLine);
+            _carController.CurrentRpm / _carController.RpmRedLine);
         //clamp to min pitch
         pitch = Mathf.Min(_lowPitchMax, pitch);
 
@@ -35,7 +34,7 @@ public class EngineAudioController : MonoBehaviour
         float decFade = 1 - accFade;
 
         //get the high fade from revs
-        float highFade = Mathf.InverseLerp(0.2f, 0.8f, _playerController.CurrentRpm / _playerController.RpmRedLine);
+        float highFade = Mathf.InverseLerp(0.2f, 0.8f, _carController.CurrentRpm / _carController.RpmRedLine);
         float lowFade = 1 - highFade;
 
         //adjust values for realism
