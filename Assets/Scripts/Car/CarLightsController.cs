@@ -13,7 +13,7 @@ public class CarLightsController : MonoBehaviour
     
     public bool HeadLightsEnabled { get; private set; }
     
-    private Light _brakeLightL, _brakeLightR, _brakeSpotLightLeft, _brakeSpotLightRight;
+    private Light _brakeLightL, _brakeLightR, _brakeSpotLightL, _brakeSpotLightR;
     private float _brakeLightIntensity;
     private float _brakeSpotLightIntensity;
     
@@ -21,11 +21,13 @@ public class CarLightsController : MonoBehaviour
     void Start()
     {
         _brakeLightL = _brakeLightLeft.GetComponent<Light>();
-        _brakeSpotLightLeft = _brakeLightLeft.GetComponentInChildren<Light>();
+        _brakeSpotLightL = _brakeLightLeft.transform.GetChild(0).GetComponent<Light>();
+        
         _brakeLightR = _brakeLightRight.GetComponent<Light>();
-        _brakeSpotLightRight = _brakeLightRight.GetComponentInChildren<Light>();
+        _brakeSpotLightR = _brakeLightRight.transform.GetChild(0).GetComponent<Light>();
+        
         _brakeLightIntensity = _brakeLightL.intensity;
-        _brakeSpotLightIntensity = _brakeSpotLightLeft.intensity;
+        _brakeSpotLightIntensity = _brakeSpotLightL.intensity;
 
         SetHeadLightsActive(true);
         SetBrakeLightsActive(false);
@@ -44,15 +46,15 @@ public class CarLightsController : MonoBehaviour
         {
             _brakeLightL.intensity = _brakeLightIntensity;
             _brakeLightR.intensity = _brakeLightIntensity;
-            _brakeSpotLightLeft.intensity = _brakeSpotLightIntensity;
-            _brakeSpotLightRight.intensity = _brakeSpotLightIntensity;
+            _brakeSpotLightL.intensity = _brakeSpotLightIntensity;
+            _brakeSpotLightR.intensity = _brakeSpotLightIntensity;
         }
         else
         {
             _brakeLightL.intensity = _brakeLightIntensity / 2;
             _brakeLightR.intensity = _brakeLightIntensity / 2;
-            _brakeSpotLightLeft.intensity = _brakeSpotLightIntensity / 2;
-            _brakeSpotLightRight.intensity = _brakeSpotLightIntensity / 2;
+            _brakeSpotLightL.intensity = _brakeSpotLightIntensity / 2;
+            _brakeSpotLightR.intensity = _brakeSpotLightIntensity / 2;
         }
     }
 
@@ -64,15 +66,15 @@ public class CarLightsController : MonoBehaviour
             {
                 _brakeLightL.intensity = _brakeLightIntensity;
                 _brakeLightR.intensity = _brakeLightIntensity;
-                _brakeSpotLightLeft.intensity = _brakeSpotLightIntensity;
-                _brakeSpotLightRight.intensity = _brakeSpotLightIntensity;
+                _brakeSpotLightL.intensity = _brakeSpotLightIntensity;
+                _brakeSpotLightR.intensity = _brakeSpotLightIntensity;
             }
             else
             {
                 _brakeLightL.intensity = _brakeLightIntensity / 2;
                 _brakeLightR.intensity = _brakeLightIntensity / 2;
-                _brakeSpotLightLeft.intensity = _brakeSpotLightIntensity / 2;
-                _brakeSpotLightRight.intensity = _brakeSpotLightIntensity / 2;
+                _brakeSpotLightL.intensity = _brakeSpotLightIntensity / 2;
+                _brakeSpotLightR.intensity = _brakeSpotLightIntensity / 2;
             }
             
             return;

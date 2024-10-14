@@ -104,4 +104,4 @@ MonoBehaviour:
   - 0.5
   BrakeForce: 6000
   HandBrakeForce: 10000
-  Downforce: 300
+  Downforce: 500

@@ -2224,7 +2224,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8291791389745808383, guid: 02a9927969bac9c46afc4b4de4aa88dc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.035
+      value: 2.171
       objectReference: {fileID: 0}
     - target: {fileID: 8291791389745808383, guid: 02a9927969bac9c46afc4b4de4aa88dc, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2236,15 +2236,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8291791389745808383, guid: 02a9927969bac9c46afc4b4de4aa88dc, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.06681382
+      value: 0.066813834
       objectReference: {fileID: 0}
     - target: {fileID: 8291791389745808383, guid: 02a9927969bac9c46afc4b4de4aa88dc, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.0000000042919828
+      value: -1e-45
       objectReference: {fileID: 0}
     - target: {fileID: 8291791389745808383, guid: 02a9927969bac9c46afc4b4de4aa88dc, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -2.8740593e-10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8291791389745808383, guid: 02a9927969bac9c46afc4b4de4aa88dc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2294,7 +2294,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6091911338635698507, guid: 650f7febef5015247bc519eef6f30918, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.035
+      value: 2.171
       objectReference: {fileID: 0}
     - target: {fileID: 6091911338635698507, guid: 650f7febef5015247bc519eef6f30918, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2306,15 +2306,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6091911338635698507, guid: 650f7febef5015247bc519eef6f30918, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.06681382
+      value: 0.066813834
       objectReference: {fileID: 0}
     - target: {fileID: 6091911338635698507, guid: 650f7febef5015247bc519eef6f30918, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.0000000042919828
+      value: -1e-45
       objectReference: {fileID: 0}
     - target: {fileID: 6091911338635698507, guid: 650f7febef5015247bc519eef6f30918, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -2.8740593e-10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6091911338635698507, guid: 650f7febef5015247bc519eef6f30918, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2454,7 +2454,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3245257177337329687, guid: 1eb8f304029df184389d6100faec11c6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.035
+      value: 0.171
       objectReference: {fileID: 0}
     - target: {fileID: 3245257177337329687, guid: 1eb8f304029df184389d6100faec11c6, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3600,6 +3600,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2089150636}
   - component: {fileID: 2089150635}
+  - component: {fileID: 2089150637}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -3684,6 +3685,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &2089150637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2089150634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
 --- !u!4 &2105007367 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 29a2224320214ef489d7ecf10d4141dd, type: 3}

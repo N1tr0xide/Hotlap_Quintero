@@ -27,6 +27,7 @@ public class CarController : MonoBehaviour
     private bool _shiftingUp, _shiftingDown;
     private bool _allWheelsGrounded;
 
+    public Wheel[] Wheels => _wheels;
     public float Kph { get; private set; }
     public float CurrentRpm { get; private set; }
     public int CurrentGear { get; private set; }
@@ -53,7 +54,7 @@ public class CarController : MonoBehaviour
     void Update()
     {
         Kph = _rb.velocity.magnitude * 3.6f;
-        ApplyTireSquealSound(Kph);
+        //ApplyTireSquealSound(Kph);
     }
 
     // Update is called once per frame
@@ -73,10 +74,7 @@ public class CarController : MonoBehaviour
 
         foreach (var wheel in _wheels)
         {
-            if (wheel.Collider.GetGroundHit(out WheelHit hitInfo))
-            {
-                continue;
-            }
+            if (wheel.Collider.GetGroundHit(out WheelHit hitInfo)) continue;
 
             _allWheelsGrounded = false;
             break;
@@ -113,24 +111,6 @@ public class CarController : MonoBehaviour
     private void ApplyDownforce(float downforceValue)
     {
         _rb.AddForce(-transform.up * (downforceValue * _rb.velocity.magnitude));
-    }
-
-    private void ApplyTireSquealSound(float carKph) 
-    {
-        foreach (var wheel in _wheels)
-        {
-            wheel.Collider.GetGroundHit(out WheelHit hit);
-            float forwardSlipValue = Mathf.Abs(hit.forwardSlip);
-            float sidewaysSlipValue = Mathf.Abs(hit.sidewaysSlip);
-
-            if(hit.collider && carKph > 10 && (forwardSlipValue >= .7f || sidewaysSlipValue >= .4f))
-            {
-                wheel.AudioSource.volume = Mathf.MoveTowards(wheel.AudioSource.volume, 1, Time.deltaTime);
-                return;
-            }
-
-            wheel.AudioSource.volume = Mathf.MoveTowards(wheel.AudioSource.volume, 0, Time.deltaTime * 2);
-        }
     }
 
     private void VisualWheelUpdate(Wheel[] wheels) 

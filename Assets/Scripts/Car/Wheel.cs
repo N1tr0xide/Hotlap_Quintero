@@ -12,6 +12,7 @@ public struct Wheel
     public Axle WheelAxle;
     public Side SideWheelIsOn;
     public AudioSource AudioSource;
+    public TrailRenderer SkidMarkTrail;
 
     public enum Side { Left, Right }
     public enum Axle { Front, Rear }
