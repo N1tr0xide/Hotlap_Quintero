@@ -6,18 +6,20 @@ using UnityEngine;
 public class CarEffects : MonoBehaviour
 {
     private CarController _carController;
+    private PlayerInputController _inputController;
     
     // Start is called before the first frame update
     void Start()
     {
         _carController = GetComponent<CarController>();
+        _inputController = GetComponent<PlayerInputController>();
     }
 
     // Update is called once per frame
     void Update()
     {
         ApplyTireSquealSound(_carController.Kph);
-        ApplySkidMark(_carController.Kph);
+        ApplySkidMark();
     }
     
     private void ApplyTireSquealSound(float carKph) 
@@ -38,7 +40,7 @@ public class CarEffects : MonoBehaviour
         }
     }
 
-    private void ApplySkidMark(float carKph)
+    private void ApplySkidMark()
     {
         foreach (var wheel in _carController.Wheels)
         {
@@ -52,7 +54,10 @@ public class CarEffects : MonoBehaviour
                 return;
             }
 
-            wheel.SkidMarkTrail.emitting = false;
+            if (!hit.collider || _inputController.BrakeInput == 0)
+            {
+                wheel.SkidMarkTrail.emitting = false;
+            }
         }
     }
 }

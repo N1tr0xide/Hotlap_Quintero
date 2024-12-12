@@ -54,7 +54,6 @@ public class CarController : MonoBehaviour
     void Update()
     {
         Kph = _rb.velocity.magnitude * 3.6f;
-        //ApplyTireSquealSound(Kph);
     }
 
     // Update is called once per frame
