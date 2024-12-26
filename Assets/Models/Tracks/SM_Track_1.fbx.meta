@@ -17,6 +17,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Gravel
+    second: {fileID: 2100000, guid: 4ec3870c4614c2f41b81c397f576ae3a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: WhiteLine.001
     second: {fileID: 2100000, guid: 97fdfcae3b05a8742b9d794f454e78a2, type: 2}
   materials:
