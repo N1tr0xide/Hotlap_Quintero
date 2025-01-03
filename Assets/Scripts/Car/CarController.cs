@@ -224,11 +224,11 @@ public class CarController : MonoBehaviour
                 wheel.Collider.steerAngle = steeringInput switch
                 {
                     > 0 => wheel.SideWheelIsOn == Wheel.Side.Left ?
-                        Mathf.Lerp(wheel.Collider.steerAngle, AckermanSteeringCalc(false, steeringInput), Time.deltaTime * (WheelRadius /2)) 
-                        : Mathf.Lerp(wheel.Collider.steerAngle, AckermanSteeringCalc(true, steeringInput), Time.deltaTime * (WheelRadius /2)),  //AckermanSteeringCalc(true, steeringInput),
+                        Mathf.Lerp(wheel.Collider.steerAngle, AckermanSteeringCalc(false, steeringInput), Time.deltaTime * 2) 
+                        : Mathf.Lerp(wheel.Collider.steerAngle, AckermanSteeringCalc(true, steeringInput), Time.deltaTime * 2),  //AckermanSteeringCalc(true, steeringInput),
                     < 0 => wheel.SideWheelIsOn == Wheel.Side.Right ?
-                        Mathf.Lerp(wheel.Collider.steerAngle, AckermanSteeringCalc(false, steeringInput), Time.deltaTime * (WheelRadius /2)) 
-                        : Mathf.Lerp(wheel.Collider.steerAngle, AckermanSteeringCalc(true, steeringInput), Time.deltaTime * (WheelRadius /2)),
+                        Mathf.Lerp(wheel.Collider.steerAngle, AckermanSteeringCalc(false, steeringInput), Time.deltaTime * 2) 
+                        : Mathf.Lerp(wheel.Collider.steerAngle, AckermanSteeringCalc(true, steeringInput), Time.deltaTime * 2),
                     _ => Mathf.Lerp(wheel.Collider.steerAngle, 0, Time.deltaTime * WheelRadius) //0
                 };
             }
