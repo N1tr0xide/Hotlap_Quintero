@@ -24,6 +24,26 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: WhiteLine.001
     second: {fileID: 2100000, guid: 97fdfcae3b05a8742b9d794f454e78a2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: barrier_concrete
+    second: {fileID: 2100000, guid: 8fcc1ca6d6d62a84a9a7b9af5d119b89, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: barrier_fence
+    second: {fileID: 2100000, guid: 0cc068b373b39a94cb99e3c10b2457e0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: barrier_fence.005
+    second: {fileID: 2100000, guid: 0cc068b373b39a94cb99e3c10b2457e0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: fanatec_banner
+    second: {fileID: 2100000, guid: 2d117700be2b3e04087350f97c04e1ef, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
