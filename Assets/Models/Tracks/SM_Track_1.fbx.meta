@@ -27,6 +27,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: barrier-fence
+    second: {fileID: 2100000, guid: 0cc068b373b39a94cb99e3c10b2457e0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: barrier_concrete
     second: {fileID: 2100000, guid: 8fcc1ca6d6d62a84a9a7b9af5d119b89, type: 2}
   - first:
